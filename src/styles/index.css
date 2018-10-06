@@ -5,6 +5,7 @@
 /* components */
 @import "tailwindcss/components";
 @import './components/forms';
+@import './components/buttons';
 
 /* utilities */
 @import "tailwindcss/utilities";

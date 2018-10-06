@@ -1,5 +1,5 @@
 .form-group {
-  @apply mb-4;
+  @apply mb-6;
 
   label {
     @apply inline-block mb-2;
