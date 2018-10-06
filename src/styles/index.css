@@ -1,0 +1,11 @@
+/* preflight - base */
+@import "tailwindcss/preflight";
+@import './base';
+
+/* components */
+@import "tailwindcss/components";
+@import './components/forms';
+
+/* utilities */
+@import "tailwindcss/utilities";
+
