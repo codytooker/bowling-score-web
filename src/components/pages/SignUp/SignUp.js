@@ -38,7 +38,7 @@ class Login extends Component {
           <div className="flex justify-center">
             <div className="w-full md:w-3/4 lg:w-1/2">
               <div className="bg-white rounded py-6 px-4 shadow-lg">
-                <h1 className="border-b pb-2 mb-6 text-xl">Login</h1>
+                <h1 className="border-b pb-2 mb-6 text-xl">Sign Up</h1>
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -65,7 +65,7 @@ class Login extends Component {
                   </div>
                 </form>
               </div>
-              <p className="text-center py-6">Or <Link to="/signup">Click Here</Link> to Sign UP</p>
+              <p className="text-center py-6">Already a member <Link to="/login">Click Here</Link> to Login</p>
             </div>
           </div>
         </div>
