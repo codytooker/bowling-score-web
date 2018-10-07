@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
 import { Auth, Card } from '../../UI';
+import { FormGroup } from '../../UI/forms';
 import * as actions from '../../../actions';
 
 class SignUp extends Component {
@@ -27,27 +28,9 @@ class SignUp extends Component {
           <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
             {({ isSubmitting }) => (
               <Form>
-                <div className="form-group">
-                  <label htmlFor="name">Name</label>
-                  <Field className="form-control" type="text" id="name" name="name" />
-                  <ErrorMessage name="name">
-                    {msg => <span className="form-error">{msg}</span>}
-                  </ErrorMessage>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <Field className="form-control" type="email" id="email" name="email" />
-                  <ErrorMessage name="email">
-                    {msg => <span className="form-error">{msg}</span>}
-                  </ErrorMessage>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Field className="form-control" type="password" id="password" name="password" />
-                  <ErrorMessage name="password">
-                    {msg => <span className="form-error">{msg}</span>}
-                  </ErrorMessage>
-                </div>
+                <FormGroup type="text" name="name" label="Name" />
+                <FormGroup type="email" name="email" label="Email" />
+                <FormGroup type="password" name="password" label="Password" />
                 <div className="form-group mb-0">
                   <button type="submit" className="btn btn--blue" disabled={isSubmitting}>Sign Up</button>
                 </div>
