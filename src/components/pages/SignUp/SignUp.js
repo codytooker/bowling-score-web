@@ -12,8 +12,7 @@ class SignUp extends Component {
   onSubmit = (values, actions) => {
     this.props.signup(values)
       .then(res => {
-        actions.setSubmitting(false);
-        console.log(res);
+        this.props.history.push('/');
       })
       .catch(error => {
         actions.setSubmitting(false);
