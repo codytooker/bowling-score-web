@@ -687,6 +687,14 @@ body {
     box-shadow: 0 0 0 3px rgba(52, 144, 220, .5);
   }
 
+.form-error {
+  display: block;
+  color: #e3342f;
+  font-size: .875rem;
+  margin-top: .25rem;
+  padding-left: .25rem;
+}
+
 .btn {
   font-weight: 700;
   padding-top: .5rem;

@@ -13,3 +13,7 @@
     @apply outline-none shadow-outline;
   }
 }
+
+.form-error {
+  @apply block text-red text-sm mt-1 pl-1;
+}
