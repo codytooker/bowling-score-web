@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import { Card } from '../../UI';
+
 const initialValues = {
   name: '',
   email: '',
@@ -15,8 +17,7 @@ const SignUp = () => (
     <div className="container">
       <div className="flex justify-center">
         <div className="w-full md:w-3/4 lg:w-1/2">
-          <div className="bg-white rounded py-6 px-4 shadow-lg">
-            <h1 className="border-b pb-2 mb-6 text-xl">Sign Up</h1>
+          <Card title="Sign Up">
             <Formik
               initialValues={initialValues}
               validationSchema={Yup.object({
@@ -67,7 +68,7 @@ const SignUp = () => (
                 </Form>
               )}
             </Formik>
-          </div>
+          </Card>
           <p className="text-center py-6">Already a member <Link to="/login">Click Here</Link> to Login</p>
         </div>
       </div>
