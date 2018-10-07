@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import reducers from './reducers';
@@ -9,8 +10,17 @@ import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
+const store = createStore(
+  reducers,
+  {},
+  compose(
+    applyMiddleware(reduxThunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
+
 ReactDOM.render(
-  <Provider store={createStore(reducers, {})}>
+  <Provider store={store}>
     <Router>
       <App />
     </Router>
