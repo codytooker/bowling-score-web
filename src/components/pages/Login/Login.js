@@ -36,7 +36,7 @@ class Login extends Component {
             )}
           </Formik>
         </Card>
-        <p className="text-center py-6">Or <Link to="/login">Click Here</Link> to Sign UP</p>
+        <p className="text-center py-6">Or <Link to="/signup">Click Here</Link> to Sign UP</p>
       </Auth>
     );
   }
