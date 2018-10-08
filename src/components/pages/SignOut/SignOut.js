@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 
@@ -8,7 +9,7 @@ class SignOut extends Component {
   }
 
   render() {
-    return <div>Sorry to see you go</div>
+    return <div>Sorry to see you go <Link to="/">Go Home</Link></div>
   }
 }
 
