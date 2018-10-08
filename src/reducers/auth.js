@@ -17,3 +17,7 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 }
+
+export function isAuthenticated(state) {
+  return !!state.auth.authenticated;
+}
