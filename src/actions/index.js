@@ -10,3 +10,12 @@ export const signup = values => dispatch => {
       localStorage.setItem('token', res.data.access_token);
     });
 };
+
+export const signout = () => {
+  localStorage.removeItem('token');
+
+  return {
+    type: AUTH_USER,
+    payload: '',
+  }
+}
