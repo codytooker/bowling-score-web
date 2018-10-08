@@ -1,77 +1,57 @@
 import React, { Component } from 'react';
+import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import * as Yup from 'yup';
+import { connect } from 'react-redux';
+
+import { Auth, Card } from '../../UI';
+import { FormGroup } from '../../UI/forms';
+import * as actions from '../../../actions';
 
 class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-    }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    axios.post('http://bowling-score.test/api/auth/login', this.state)
+  onSubmit = (values, actions) => {
+    this.props.login(values)
       .then(res => {
-        console.log(res);
+        this.props.history.push('/');
       })
       .catch(error => {
-        console.log('error ', error);
+        actions.setSubmitting(false);
+        actions.setErrors(error.response.data.errors);
       })
-
-    console.log('the form was submitted: ' + this.state.email);
   }
 
   render() {
     return (
-      <div className="h-screen flex items-center">
-        <div className="container">
-          <div className="flex justify-center">
-            <div className="w-full md:w-3/4 lg:w-1/2">
-              <div className="bg-white rounded py-6 px-4 shadow-lg">
-                <h1 className="border-b pb-2 mb-6 text-xl">Login</h1>
-                <form onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      className="form-control"
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.handleChange} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                      className="form-control"
-                      type="password"
-                      id="password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleChange} />
-                  </div>
-                  <div className="form-group mb-0">
-                    <button action="submit" className="btn btn--blue">Login</button>
-                  </div>
-                </form>
-              </div>
-              <p className="text-center py-6">Or <Link to="/signup">Click Here</Link> to Sign UP</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Auth>
+        <Card title="Login">
+          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
+            {({ isSubmitting }) => (
+              <Form>
+                <FormGroup type="email" name="email" label="Email" />
+                <FormGroup type="password" name="password" label="Password" />
+                <div className="form-group mb-0">
+                  <button type="submit" className="btn btn--blue" disabled={isSubmitting}>Login</button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </Card>
+        <p className="text-center py-6">Or <Link to="/login">Click Here</Link> to Sign UP</p>
+      </Auth>
     );
   }
-}
+};
 
-export default Login;
+const initialValues = {
+  email: '',
+  password: '',
+};
+
+const validationSchema = (
+  Yup.object({
+    email: Yup.string().email('Invalid email!').required('Required'),
+    password: Yup.string().required('Required'),
+  })
+);
+
+export default connect(null, actions)(Login);
