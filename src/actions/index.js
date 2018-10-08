@@ -11,6 +11,14 @@ export const signup = values => dispatch => {
     });
 };
 
+export const login = values => dispatch => {
+  return axios.post('http://bowling-score.test/api/auth/login', values)
+    .then(res => {
+      dispatch({ type: AUTH_USER, payload: res.data.access_token });
+      localStorage.setItem('token', res.data.access_token);
+    });
+};
+
 export const signout = () => {
   localStorage.removeItem('token');
 
