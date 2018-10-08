@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-import { Home, Login, SignUp, Feature } from '../pages';
+import { Home, Login, SignUp, SignOut, Feature } from '../pages';
 import { PrivateRoute } from '../utils';
 import Header from '../UI/Header';
 
@@ -14,6 +14,7 @@ const App = () => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/SignUp" component={SignUp} />
         <PrivateRoute exact path="/feature" component={Feature} />
+        <PrivateRoute exact path="/signout" component={SignOut} />
       </Switch>
     </>
   </Router>
