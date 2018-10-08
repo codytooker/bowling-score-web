@@ -696,17 +696,28 @@ body {
 }
 
 .btn {
-  font-weight: 700;
+  display: inline-block;
   padding-top: .5rem;
   padding-bottom: .5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   border-radius: .25rem;
+  font-weight: 700;
+  color: #22292f;
+  text-decoration: none;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
 }
+
+.btn--lg {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: 1.5rem;
+  }
 
 .btn--blue {
     background-color: #3490dc;
@@ -715,6 +726,15 @@ body {
 
 .btn--blue:hover {
       background-color: #2779bd;
+    }
+
+.btn--white {
+    background-color: #fff;
+  }
+
+.btn--white:hover {
+      background-color: #22292f;
+      color: #fff;
     }
 
 /* utilities */

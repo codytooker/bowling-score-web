@@ -1,11 +1,23 @@
 .btn {
-  @apply font-bold py-2 px-4 rounded select-none;
+  @apply inline-block py-2 px-4 rounded font-bold text-black no-underline select-none;
+
+  &--lg {
+    @apply py-4 px-6 text-2xl;
+  }
 
   &--blue {
     @apply bg-blue text-white;
 
     &:hover {
       @apply bg-blue-dark;
+    }
+  }
+
+  &--white {
+    @apply bg-white;
+
+    &:hover {
+      @apply bg-black text-white;
     }
   }
 }
