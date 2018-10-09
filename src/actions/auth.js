@@ -29,7 +29,7 @@ export const signout = () => {
   }
 }
 
-function loginUser(dispatch, token) {
+const loginUser = (dispatch, token) => {
   const decodedToken = jwtDecode(token);
 
   dispatch({ type: AUTH_USER, payload: decodedToken.user });
