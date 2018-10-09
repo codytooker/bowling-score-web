@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
+import setAuthorizationToken from '../utils/setAuthorizationToken';
 import {
   AUTH_USER
 } from './types';
@@ -33,4 +34,5 @@ function loginUser(dispatch, token) {
 
   dispatch({ type: AUTH_USER, payload: decodedToken.user });
   localStorage.setItem('token', token);
+  setAuthorizationToken(token);
 }

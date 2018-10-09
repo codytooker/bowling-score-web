@@ -9,7 +9,10 @@ import jwtDecode from 'jwt-decode';
 import reducers from './reducers';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+import setAuthorizationToken from './utils/setAuthorizationToken';
 import './index.css';
+
+setAuthorizationToken(localStorage.getItem('token'));
 
 const store = createStore(
   reducers,
