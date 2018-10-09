@@ -12,6 +12,8 @@ import * as serviceWorker from './serviceWorker';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import './index.css';
 
+import './setup/api';
+
 setAuthorizationToken(localStorage.getItem('token'));
 
 const store = createStore(

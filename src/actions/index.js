@@ -7,14 +7,14 @@ import {
 } from './types';
 
 export const signup = values => dispatch => {
-  return axios.post('http://bowling-score.test/api/auth/register', values)
+  return axios.post('/auth/register', values)
     .then(res => {
       loginUser(dispatch, res.data.access_token);
     });
 };
 
 export const login = values => dispatch => {
-  return axios.post('http://bowling-score.test/api/auth/login', values)
+  return axios.post('/auth/login', values)
     .then(res => {
       loginUser(dispatch, res.data.access_token);
     });
