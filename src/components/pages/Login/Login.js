@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { Auth, Card } from '../../UI';
 import { FormGroup } from '../../UI/forms';
-import * as actions from '../../../actions';
+import { login } from '../../../actions/auth';
 
 class Login extends Component {
   onSubmit = (values, actions) => {
@@ -54,4 +54,4 @@ const validationSchema = (
   })
 );
 
-export default connect(null, actions)(Login);
+export default connect(null, { login })(Login);

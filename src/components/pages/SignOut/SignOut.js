@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions';
+import { signout } from '../../../actions/auth';
 
 class SignOut extends Component {
   componentDidMount() {
@@ -13,4 +13,4 @@ class SignOut extends Component {
   }
 }
 
-export default connect(null, actions)(SignOut);
+export default connect(null, { signout })(SignOut);
