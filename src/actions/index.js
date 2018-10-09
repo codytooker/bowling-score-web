@@ -1,4 +1,6 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+
 import {
   AUTH_USER
 } from './types';
@@ -6,16 +8,14 @@ import {
 export const signup = values => dispatch => {
   return axios.post('http://bowling-score.test/api/auth/register', values)
     .then(res => {
-      dispatch({ type: AUTH_USER, payload: res.data.access_token });
-      localStorage.setItem('token', res.data.access_token);
+      loginUser(dispatch, res.data.access_token);
     });
 };
 
 export const login = values => dispatch => {
   return axios.post('http://bowling-score.test/api/auth/login', values)
     .then(res => {
-      dispatch({ type: AUTH_USER, payload: res.data.access_token });
-      localStorage.setItem('token', res.data.access_token);
+      loginUser(dispatch, res.data.access_token);
     });
 };
 
@@ -26,4 +26,11 @@ export const signout = () => {
     type: AUTH_USER,
     payload: '',
   }
+}
+
+function loginUser(dispatch, token) {
+  const decodedToken = jwtDecode(token);
+
+  dispatch({ type: AUTH_USER, payload: decodedToken.user });
+  localStorage.setItem('token', token);
 }
