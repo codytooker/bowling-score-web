@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 
 import { FormGroup } from '../../UI/forms';
 import { Card } from '../../UI';
+import { createGame } from '../../../actions/game';
 
 class NewGame extends Component {
   onSubmit = (values, actions) => {
-    console.log(values);
+    this.props.createGame(values)
+      .then(res => {
+        this.props.history.push('/games');
+      })
+      .catch(error => {
+        actions.setSubmitting(false);
+        actions.setErrors(error.response.data.errors);
+      })
   }
 
   render() {
@@ -19,7 +28,7 @@ class NewGame extends Component {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
               {({ isSubmitting }) => (
                 <Form>
-                  <FormGroup type="text" name="name" label="Game Title" />
+                  <FormGroup type="text" name="title" label="Game Title" />
                   <div className="form-group mb-0">
                     <button type="submit" className="btn btn--blue" disabled={isSubmitting}>Create</button>
                   </div>
@@ -34,13 +43,13 @@ class NewGame extends Component {
 }
 
 const initialValues = {
-  name: '',
+  title: '',
 };
 
 const validationSchema = (
   Yup.object({
-    name: Yup.string().required('Required'),
+    title: Yup.string().required('Required'),
   })
 );
 
-export default NewGame;
+export default connect(null, { createGame })(NewGame);
