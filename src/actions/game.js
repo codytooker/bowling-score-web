@@ -4,6 +4,7 @@ import { normalize } from 'normalizr';
 import * as schema from './schema';
 
 import {
+  ADD_GAME,
   REQUEST_GAMES,
   RECEIVE_GAMES,
   INVALIDATE_GAMES,
@@ -28,6 +29,15 @@ const receiveGames = data => {
       receivedAt: Date.now(),
       games: data.entities.games,
       gameIds: data.result,
+    }
+  }
+}
+
+const addGame = game => {
+  return {
+    type: ADD_GAME,
+    payload: {
+      game
     }
   }
 }
@@ -58,12 +68,9 @@ export const fetchGamesIfNeeded = () => (dispatch, getState) => {
 }
 
 export const createGame = values => dispatch => {
-  console.log(values);
-  return axios.post('/game', values)
+  return axios.post('/games', values)
     .then(res => {
-      console.log()
-      //TODO: here we need to figure out what to do with the response.
-      // add to redux through normalizing and all that,  
+      dispatch(addGame(res.data.game));
     })
     .catch(err => {
       //We also need to figure out how to have axios intercept if anything is tried to happen with an unauthorized token.

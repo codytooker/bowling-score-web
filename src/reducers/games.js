@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
+  ADD_GAME,
   REQUEST_GAMES,
   RECEIVE_GAMES,
   INVALIDATE_GAMES,
@@ -13,6 +14,12 @@ const byId = (state = {}, action) => {
         ...action.payload.games
       }
 
+    case ADD_GAME:
+      return {
+        ...state,
+        [action.payload.game.id]: action.payload.game,
+      }
+
     default: 
       return state;
   }
@@ -22,6 +29,9 @@ const allIds = (state = [], action) => {
   switch(action.type) {
     case RECEIVE_GAMES:
       return action.payload.gameIds;
+
+    case ADD_GAME:
+      return [...state, action.payload.game.id]
 
     default: 
       return state;
@@ -65,7 +75,5 @@ export default combineReducers({
 });
 
 export function getGames(state) {
-  console.log(state.games.byId[1]);
-  // console.log(state.games.allIds.map(id => state.games.byId[id]));
   return state.games.allIds.map(id => state.games.byId[id]);
 }
