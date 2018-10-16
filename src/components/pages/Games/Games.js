@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class Games extends Component{
+import { fetchGamesIfNeeded } from '../../../actions/game';
+
+class Games extends Component {
+  componentDidMount() {
+    this.props.fetchGamesIfNeeded();
+  }
   render() {
     return (
-      <div>My Games</div>
+      <div className="container">
+        <h1 className="text-center text-white">My Games</h1>
+        <Link to="/">Temp Home Link</Link>
+      </div>
     );
   }
 } 
-export default Games;
+export default connect(null, { fetchGamesIfNeeded })(Games);
