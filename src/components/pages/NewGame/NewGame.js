@@ -23,21 +23,19 @@ class NewGame extends Component {
   render() {
     return (
       <DefaultLayout>
-        <div className="container">
-          <h1 className="text-center text-white">Create New Game</h1>
-          <Card title="New Game">
-            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
-              {({ isSubmitting }) => (
-                <Form>
-                  <FormGroup type="text" name="title" label="Game Title" />
-                  <div className="form-group mb-0">
-                    <button type="submit" className="btn btn--blue" disabled={isSubmitting}>Create</button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </Card>
-        </div>
+        <h1 className="text-center text-white">Create New Game</h1>
+        <Card title="New Game">
+          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
+            {({ isSubmitting }) => (
+              <Form>
+                <FormGroup type="text" name="title" label="Game Title" />
+                <div className="form-group mb-0">
+                  <button type="submit" className="btn btn--blue" disabled={isSubmitting}>Create</button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </Card>
       </DefaultLayout>
     );
   }

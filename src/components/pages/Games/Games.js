@@ -25,10 +25,8 @@ class Games extends Component {
   render() {
     return (
       <DefaultLayout>
-        <div className="container">
-          <h1 className="text-center text-white">My Games</h1>
-          {this.renderGames()}
-        </div>
+        <h1 className="text-center text-white">My Games</h1>
+        {this.renderGames()}
       </DefaultLayout>
     );
   }
