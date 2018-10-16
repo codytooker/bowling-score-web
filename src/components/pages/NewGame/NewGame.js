@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
+import { DefaultLayout } from '../../UI/Layouts';
 import { FormGroup } from '../../UI/forms';
 import { Card } from '../../UI';
 import { createGame } from '../../../actions/game';
@@ -21,7 +22,7 @@ class NewGame extends Component {
 
   render() {
     return (
-      <div>
+      <DefaultLayout>
         <div className="container">
           <h1 className="text-center text-white">Create New Game</h1>
           <Card title="New Game">
@@ -37,7 +38,7 @@ class NewGame extends Component {
             </Formik>
           </Card>
         </div>
-      </div>
+      </DefaultLayout>
     );
   }
 }

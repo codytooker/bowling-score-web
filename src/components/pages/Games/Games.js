@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { DefaultLayout } from '../../UI/Layouts';
 import { fetchGamesIfNeeded } from '../../../actions/game';
 import { getGames } from '../../../reducers/games';
 
@@ -24,11 +24,12 @@ class Games extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h1 className="text-center text-white">My Games</h1>
-        {this.renderGames()}
-        <Link to="/">Temp Home Link</Link>
-      </div>
+      <DefaultLayout>
+        <div className="container">
+          <h1 className="text-center text-white">My Games</h1>
+          {this.renderGames()}
+        </div>
+      </DefaultLayout>
     );
   }
 }
