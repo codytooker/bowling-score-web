@@ -63,3 +63,9 @@ export default combineReducers({
   allIds,
   meta,
 });
+
+export function getGames(state) {
+  console.log(state.games.byId[1]);
+  // console.log(state.games.allIds.map(id => state.games.byId[id]));
+  return state.games.allIds.map(id => state.games.byId[id]);
+}
