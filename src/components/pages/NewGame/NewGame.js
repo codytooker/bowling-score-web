@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { DefaultLayout } from '../../UI/Layouts';
 import { FormGroup } from '../../UI/forms';
+import { Heading } from '../../UI/elements';
 import { Card } from '../../UI';
 import { createGame } from '../../../actions/game';
 
@@ -23,7 +24,7 @@ class NewGame extends Component {
   render() {
     return (
       <DefaultLayout>
-        <h1 className="text-center text-white">Create New Game</h1>
+        <Heading>Create New Game</Heading>
         <Card title="New Game">
           <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
             {({ isSubmitting }) => (

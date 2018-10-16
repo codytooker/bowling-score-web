@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { DefaultLayout } from '../../UI/Layouts';
+import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
 import { getGames } from '../../../reducers/games';
 
@@ -25,7 +26,7 @@ class Games extends Component {
   render() {
     return (
       <DefaultLayout>
-        <h1 className="text-center text-white">My Games</h1>
+        <Heading>My Games</Heading>
         {this.renderGames()}
       </DefaultLayout>
     );
