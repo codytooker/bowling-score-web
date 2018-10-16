@@ -71,11 +71,6 @@ export const createGame = values => dispatch => {
   return axios.post('/games', values)
     .then(res => {
       dispatch(addGame(res.data.game));
-    })
-    .catch(err => {
-      //We also need to figure out how to have axios intercept if anything is tried to happen with an unauthorized token.
-      // If it's expired or no user we should automatically run the logout action.
-      console.log('this is temporary just seeing if it we get to here, which we should')
     });
 }
 
