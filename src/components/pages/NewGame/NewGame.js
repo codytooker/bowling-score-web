@@ -48,7 +48,7 @@ const initialValues = {
 
 const validationSchema = (
   Yup.object({
-    title: Yup.string().required('Required'),
+    title: Yup.string().min(6).required('Required'),
   })
 );
 
