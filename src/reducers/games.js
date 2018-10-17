@@ -75,5 +75,9 @@ export default combineReducers({
 });
 
 export function getGames(state) {
-  return state.games.allIds.map(id => state.games.byId[id]);
+  const games = state.games.allIds.map(id => state.games.byId[id]);
+
+  return games.sort((a,b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
 }
