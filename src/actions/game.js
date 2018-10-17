@@ -9,6 +9,7 @@ import {
   RECEIVE_GAMES,
   INVALIDATE_GAMES,
 } from './types';
+import { getUserID } from '../reducers/auth';
 
 export const invalidateGames = () => {
   return {
@@ -67,7 +68,9 @@ export const fetchGamesIfNeeded = () => (dispatch, getState) => {
   }
 }
 
-export const createGame = values => dispatch => {
+export const createGame = values => (dispatch, getState) => {
+  values.user = getUserID(getState());
+  console.log(values);
   return axios.post('/games', values)
     .then(res => {
       dispatch(addGame(res.data.game));

@@ -20,3 +20,7 @@ export default (state = INITIAL_STATE, action) => {
 export function isAuthenticated(state) {
   return !!state.auth.user;
 }
+
+export function getUserID(state) {
+  return state.auth.user.id;
+}
