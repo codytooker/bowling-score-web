@@ -70,7 +70,6 @@ export const fetchGamesIfNeeded = () => (dispatch, getState) => {
 
 export const createGame = values => (dispatch, getState) => {
   values.user = getUserID(getState());
-  console.log(values);
   return axios.post('/games', values)
     .then(res => {
       dispatch(addGame(res.data.game));
