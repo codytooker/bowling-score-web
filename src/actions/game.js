@@ -44,12 +44,15 @@ const addGame = game => {
 }
 
 const shouldFetchGames = ({ games }) => {
-  if (!games.allIds.length) {
+  console.log(games.meta.lastUpdated);
+  if (typeof games.meta.lastUpdated === 'undefined') {
     return true;
-  } else if(games.isFetching) {
+  } else if (!games.allIds.length) {
+    return true;
+  } else if(games.meta.isFetching) {
     return false;
   } else {
-    return games.didInvalidate;
+    return games.meta.didInvalidate;
   }
 }
 
