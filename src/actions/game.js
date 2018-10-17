@@ -57,7 +57,7 @@ const fetchGames = () => dispatch => {
   dispatch(requestGames());
   return axios.get('/games')
     .then(res => {
-      const normalizedData = normalize(res.data.games, [schema.game]);
+      const normalizedData = normalize(res.data.data, [schema.game]);
       dispatch(receiveGames(normalizedData));
     });
 }
@@ -72,7 +72,7 @@ export const createGame = values => (dispatch, getState) => {
   values.user = getUserID(getState());
   return axios.post('/games', values)
     .then(res => {
-      dispatch(addGame(res.data.game));
+      dispatch(addGame(res.data.data));
     });
 }
 
