@@ -5,6 +5,7 @@
   ],
   "rules": {
     "object-curly-newline" : "off",
-    "consistent-return" : "off"
+    "consistent-return" : "off",
+    "no-use-before-define" : "off"
   }
 }
