@@ -81,3 +81,7 @@ export function getGames(state) {
     return new Date(b.date) - new Date(a.date);
   });
 }
+
+export const isFetching = state => {
+  return state.games.meta.isFetching;
+}
