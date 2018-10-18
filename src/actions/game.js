@@ -11,69 +11,65 @@ import {
 } from './types';
 import { getUserID } from '../reducers/auth';
 
-export const invalidateGames = () => {
-  return {
-    type: INVALIDATE_GAMES
-  }
-}
+export const invalidateGames = () => ({
+  type: INVALIDATE_GAMES,
+});
 
-const requestGames = () => {
-  return {
-    type: REQUEST_GAMES,
-  }
-}
+const requestGames = () => ({
+  type: REQUEST_GAMES,
+});
 
-const receiveGames = data => {
-  return {
-    type: RECEIVE_GAMES,
-    payload: {
-      receivedAt: Date.now(),
-      games: data.entities.games,
-      gameIds: data.result,
-    }
-  }
-}
+const receiveGames = data => ({
+  type: RECEIVE_GAMES,
+  payload: {
+    receivedAt: Date.now(),
+    games: data.entities.games,
+    gameIds: data.result,
+  },
+});
 
-const addGame = game => {
-  return {
-    type: ADD_GAME,
-    payload: {
-      game
-    }
-  }
-}
+const addGame = game => ({
+  type: ADD_GAME,
+  payload: {
+    game,
+  },
+});
 
 const shouldFetchGames = ({ games }) => {
   if (typeof games.meta.lastUpdated === 'undefined') {
     return true;
-  } else if (!games.allIds.length) {
+  } if (!games.allIds.length) {
     return true;
-  } else if(games.meta.isFetching) {
+  } if (games.meta.isFetching) {
     return false;
-  } else {
-    return games.meta.didInvalidate;
   }
-}
+  return games.meta.didInvalidate;
+};
 
-const fetchGames = () => dispatch => {
+const fetchGames = () => (dispatch) => {
   dispatch(requestGames());
   return axios.get('/games')
-    .then(res => {
+    .then((res) => {
       const normalizedData = normalize(res.data.data, [schema.game]);
       dispatch(receiveGames(normalizedData));
     });
-}
+};
 
 export const fetchGamesIfNeeded = () => (dispatch, getState) => {
   if (shouldFetchGames(getState())) {
     return dispatch(fetchGames());
   }
-}
+
+  return false;
+};
 
 export const createGame = values => (dispatch, getState) => {
-  values.user = getUserID(getState());
-  return axios.post('/games', values)
-    .then(res => {
+  const data = {
+    ...values,
+    user: getUserID(getState()),
+  };
+  return axios.post('/games', data)
+    .then((res) => {
       dispatch(addGame(res.data.data));
     });
-}
+};
