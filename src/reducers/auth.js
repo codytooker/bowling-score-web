@@ -9,13 +9,13 @@ export default (state = INITIAL_STATE, action) => {
     case AUTH_USER:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
 
     default:
       return state;
   }
-}
+};
 
 export function isAuthenticated(state) {
   return !!state.auth.user;
