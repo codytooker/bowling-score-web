@@ -4,5 +4,5 @@ import games from './games';
 
 export default combineReducers({
   auth,
-  games
+  games,
 });
