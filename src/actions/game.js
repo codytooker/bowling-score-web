@@ -44,7 +44,6 @@ const addGame = game => {
 }
 
 const shouldFetchGames = ({ games }) => {
-  console.log(games.meta.lastUpdated);
   if (typeof games.meta.lastUpdated === 'undefined') {
     return true;
   } else if (!games.allIds.length) {
@@ -78,4 +77,3 @@ export const createGame = values => (dispatch, getState) => {
       dispatch(addGame(res.data.data));
     });
 }
-
