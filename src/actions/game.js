@@ -2,14 +2,13 @@ import axios from 'axios';
 import { normalize } from 'normalizr';
 
 import * as schema from './schema';
-
+import withUser from '../utils/withUser';
 import {
   ADD_GAME,
   REQUEST_GAMES,
   RECEIVE_GAMES,
   INVALIDATE_GAMES,
 } from './types';
-import { getUserID } from '../reducers/auth';
 
 export const invalidateGames = () => ({
   type: INVALIDATE_GAMES,
@@ -64,10 +63,7 @@ export const fetchGamesIfNeeded = () => (dispatch, getState) => {
 };
 
 export const createGame = values => (dispatch, getState) => {
-  const data = {
-    ...values,
-    user: getUserID(getState()),
-  };
+  const data = withUser(values, getState());
   return axios.post('/games', data)
     .then((res) => {
       dispatch(addGame(res.data.data));
