@@ -14,17 +14,14 @@ class Games extends Component {
 
   renderGames() {
     if (this.props.isLoading) {
-      return <div>Show Loading</div>
-    } else {
-      if (this.props.games.length) {
-        return (
-          <div>
-            {this.props.games.map(game => {
-              return <div key={game.id}><Link to={`games/${game.id}`}>{game.title}</Link></div>
-            })}
-          </div>
-        )
-      }
+      return <div>Show Loading</div>;
+    }
+    if (this.props.games.length) {
+      return (
+            <div>
+              {this.props.games.map(game => <div key={game.id}><Link to={`games/${game.id}`}>{game.title}</Link></div>)}
+            </div>
+      );
     }
   }
 
@@ -38,10 +35,8 @@ class Games extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    games: getGames(state),
-    isLoading: isFetching(state),
-  }
-}
+const mapStateToProps = state => ({
+  games: getGames(state),
+  isLoading: isFetching(state),
+});
 export default connect(mapStateToProps, { fetchGamesIfNeeded })(Games);
