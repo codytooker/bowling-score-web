@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { DefaultLayout } from '../../UI/Layouts';
 import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
-import { getGames, isFetching } from '../../../reducers/games';
+import { getGameByID} from '../../../reducers/games';
 
-class Games extends Component {
+class SingleGame extends Component {
   componentDidMount() {
     this.props.fetchGamesIfNeeded();
   }
@@ -20,7 +19,7 @@ class Games extends Component {
         return (
           <div>
             {this.props.games.map(game => {
-              return <div key={game.id}><Link to={`games/${game.id}`}>{game.title}</Link></div>
+              return <div key={game.id}>{game.title}</div>
             })}
           </div>
         )
@@ -38,10 +37,9 @@ class Games extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    games: getGames(state),
-    isLoading: isFetching(state),
+    games: getGameByID(state, ownProps.match.params.id),
   }
 }
-export default connect(mapStateToProps, { fetchGamesIfNeeded })(Games);
+export default connect(mapStateToProps, { fetchGamesIfNeeded })(SingleGame);

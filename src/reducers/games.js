@@ -82,6 +82,10 @@ export function getGames(state) {
   });
 }
 
+export const getGameByID = (state, id) => {
+  return state.games.byId[id];
+}
+
 export const isFetching = state => {
   return state.games.meta.isFetching;
 }
