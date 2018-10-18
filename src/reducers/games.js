@@ -8,46 +8,46 @@ import {
 } from '../actions/types';
 
 const byId = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case RECEIVE_GAMES:
       return {
-        ...action.payload.games
-      }
+        ...action.payload.games,
+      };
 
     case ADD_GAME:
       return {
         ...state,
         [action.payload.game.id]: action.payload.game,
-      }
+      };
 
-    default: 
+    default:
       return state;
   }
-}
+};
 
 const allIds = (state = [], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case RECEIVE_GAMES:
       return action.payload.gameIds;
 
     case ADD_GAME:
-      return [...state, action.payload.game.id]
+      return [...state, action.payload.game.id];
 
-    default: 
+    default:
       return state;
   }
-}
+};
 
 const INITIAL_META = {
   isFetching: false,
   isInvalidated: false,
-}
+};
 
 const meta = (state = INITIAL_META, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case INVALIDATE_GAMES:
       return Object.assign({}, state, {
-        isInvalidated: true
+        isInvalidated: true,
       });
 
     case REQUEST_GAMES:
@@ -63,10 +63,10 @@ const meta = (state = INITIAL_META, action) => {
         lastUpdated: action.payload.receivedAt,
       });
 
-    default: 
+    default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   byId,
@@ -77,15 +77,9 @@ export default combineReducers({
 export function getGames(state) {
   const games = state.games.allIds.map(id => state.games.byId[id]);
 
-  return games.sort((a,b) => {
-    return new Date(b.date) - new Date(a.date);
-  });
+  return games.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
-export const getGameByID = (state, id) => {
-  return state.games.byId[id];
-}
+export const getGameByID = (state, id) => state.games.byId[id];
 
-export const isFetching = state => {
-  return state.games.meta.isFetching;
-}
+export const isFetching = state => state.games.meta.isFetching;
