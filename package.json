@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "autoprefixer": "^9.1.5",
+    "eslint-config-airbnb-base": "^13.1.0",
     "postcss-cli": "^6.0.0",
     "postcss-import": "^12.0.0",
     "postcss-nested": "^4.1.0",
