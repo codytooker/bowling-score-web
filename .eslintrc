@@ -2,5 +2,8 @@
   "extends": [
     "react-app",
     "airbnb-base"
-  ]
+  ],
+  "rules": {
+    "object-curly-newline" : "off"
+  }
 }
