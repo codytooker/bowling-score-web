@@ -7,6 +7,8 @@
     "object-curly-newline" : "off",
     "consistent-return" : "off",
     "no-use-before-define" : "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
+    "max-len" : "off"
   }
 }
