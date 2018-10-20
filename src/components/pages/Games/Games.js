@@ -18,9 +18,9 @@ class Games extends Component {
     }
     if (this.props.games.length) {
       return (
-            <div>
-              {this.props.games.map(game => <div key={game.id}><Link to={`games/${game.id}`}>{game.title}</Link></div>)}
-            </div>
+        <div>
+          {this.props.games.map(game => <div key={game.id}><Link to={`games/${game.id}`}>{game.title}</Link></div>)}
+        </div>
       );
     }
   }
