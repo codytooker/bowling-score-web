@@ -8,16 +8,27 @@ import { fetchGamesIfNeeded } from '../../../actions/game';
 import { getGameByID, isFetching } from '../../../reducers/games';
 
 class SingleGame extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentFrame: 1,
-    };
-  }
+  state = {
+    currentFrame: 1,
+  };
 
   componentDidMount() {
     this.props.fetchGamesIfNeeded();
+  }
+
+  updateCurrentFrame = (forward = true) => {
+    const { currentFrame } = this.state;
+    let newFrame = currentFrame;
+
+    if (forward && currentFrame < 10) {
+      newFrame = currentFrame + 1;
+    }
+
+    if (!forward && currentFrame > 1) {
+      newFrame = currentFrame - 1;
+    }
+
+    this.setState({ currentFrame: newFrame });
   }
 
   render() {
@@ -37,7 +48,7 @@ class SingleGame extends Component {
           <Heading>{game.title}</Heading>
           <FullBoard currentFrame={this.state.currentFrame} />
           <PinCounter />
-          <FrameControls />
+          <FrameControls updateFrame={this.updateCurrentFrame} />
         </div>
       </DefaultLayout>
     );
