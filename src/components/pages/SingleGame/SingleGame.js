@@ -8,6 +8,14 @@ import { fetchGamesIfNeeded } from '../../../actions/game';
 import { getGameByID, isFetching } from '../../../reducers/games';
 
 class SingleGame extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currentFrame: 1,
+    };
+  }
+
   componentDidMount() {
     this.props.fetchGamesIfNeeded();
   }
@@ -27,7 +35,7 @@ class SingleGame extends Component {
       <DefaultLayout>
         <div className="flex flex-col">
           <Heading>{game.title}</Heading>
-          <FullBoard />
+          <FullBoard currentFrame={this.state.currentFrame} />
           <PinCounter />
           <FrameControls />
         </div>
