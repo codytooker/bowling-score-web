@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { FullBoard, PinCounter, FrameControls } from '../../UI/bowling';
 import { DefaultLayout } from '../../UI/Layouts';
 import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
@@ -24,7 +25,12 @@ class SingleGame extends Component {
 
     return (
       <DefaultLayout>
-        <Heading>{game.title}</Heading>
+        <div className="flex flex-col">
+          <Heading>{game.title}</Heading>
+          <FullBoard />
+          <PinCounter />
+          <FrameControls />
+        </div>
       </DefaultLayout>
     );
   }
