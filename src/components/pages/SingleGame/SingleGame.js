@@ -46,7 +46,7 @@ class SingleGame extends Component {
       <DefaultLayout>
         <div className="flex flex-col">
           <Heading>{game.title}</Heading>
-          <FullBoard currentFrame={this.state.currentFrame} />
+          <FullBoard currentFrame={this.state.currentFrame} frames={game.frames} />
           <PinCounter />
           <FrameControls updateFrame={this.updateCurrentFrame} />
         </div>
