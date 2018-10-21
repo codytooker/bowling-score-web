@@ -19,6 +19,14 @@ const FullBoard = ({ currentFrame }) => {
 
 FullBoard.propTypes = {
   currentFrame: PropTypes.number.isRequired,
+  frames: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    number: PropTypes.number.isRequired,
+    throw_2: PropTypes.array,
+    throw_3: PropTypes.array,
+    throw_1: PropTypes.array,
+    score: PropTypes.number,
+  })).isRequired,
 };
 
 export default FullBoard;
