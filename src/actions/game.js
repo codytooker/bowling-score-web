@@ -22,8 +22,7 @@ const receiveGames = data => ({
   type: RECEIVE_GAMES,
   payload: {
     receivedAt: Date.now(),
-    games: data.entities.games,
-    gameIds: data.result,
+    entities: data.entities,
   },
 });
 
