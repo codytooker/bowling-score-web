@@ -7,6 +7,8 @@ import {
   INVALIDATE_GAMES,
 } from '../actions/types';
 
+import { getFrameByID } from './frames';
+
 const byId = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_GAMES:
@@ -80,6 +82,22 @@ export function getGames(state) {
   return games.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
-export const getGameByID = (state, id) => state.games.byId[id];
+// export const getGameByID = (state, id) => state.games.byId[id];
+
+export const getGameByID = (state, id) => {
+  const game = state.games.byId[id];
+
+  if (typeof game === 'undefined') {
+    return game;
+  }
+
+  const frames = game.frames.map(frame => getFrameByID(state, frame));
+
+  return {
+    ...game,
+    frames,
+  };
+};
+
 
 export const isFetching = state => state.games.meta.isFetching;
