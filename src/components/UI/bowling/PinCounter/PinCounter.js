@@ -38,14 +38,14 @@ class PinCounter extends Component {
         <BowlingPin number={8} handleClick={this.handlePinClick} selected={pins.indexOf(8) !== -1} />
         <BowlingPin number={9} handleClick={this.handlePinClick} selected={pins.indexOf(9) !== -1} />
         <BowlingPin number={10} handleClick={this.handlePinClick} selected={pins.indexOf(10) !== -1} />
-        <div className="w-full"></div>
+        <div className="w-full" />
         <BowlingPin number={4} handleClick={this.handlePinClick} selected={pins.indexOf(4) !== -1} />
         <BowlingPin number={5} handleClick={this.handlePinClick} selected={pins.indexOf(5) !== -1} />
         <BowlingPin number={6} handleClick={this.handlePinClick} selected={pins.indexOf(6) !== -1} />
-        <div className="w-full"></div>
+        <div className="w-full" />
         <BowlingPin number={2} handleClick={this.handlePinClick} selected={pins.indexOf(2) !== -1} />
         <BowlingPin number={3} handleClick={this.handlePinClick} selected={pins.indexOf(3) !== -1} />
-        <div className="w-full"></div>
+        <div className="w-full" />
         <BowlingPin number={1} handleClick={this.handlePinClick} selected={pins.indexOf(1) !== -1} />
       </div>
     );
