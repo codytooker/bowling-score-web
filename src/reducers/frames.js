@@ -30,3 +30,5 @@ export default combineReducers({
   byId,
   allIds,
 });
+
+export const getFrameByID = (state, id) => state.frames.byId[id];
