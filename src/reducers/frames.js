@@ -1,10 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
-  ADD_GAME,
-  REQUEST_GAMES,
   RECEIVE_GAMES,
-  INVALIDATE_GAMES,
 } from '../actions/types';
 
 const byId = (state = {}, action) => {
@@ -29,38 +26,7 @@ const allIds = (state = [], action) => {
   }
 };
 
-const INITIAL_META = {
-  isFetching: false,
-  isInvalidated: false,
-};
-
-const meta = (state = INITIAL_META, action) => {
-  switch (action.type) {
-    case INVALIDATE_GAMES:
-      return Object.assign({}, state, {
-        isInvalidated: true,
-      });
-
-    case REQUEST_GAMES:
-      return Object.assign({}, state, {
-        isFetching: true,
-        isInvalidated: false,
-      });
-
-    case RECEIVE_GAMES:
-      return Object.assign({}, state, {
-        isFetching: false,
-        isInvalidated: false,
-        lastUpdated: action.payload.receivedAt,
-      });
-
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   byId,
   allIds,
-  meta,
 });
