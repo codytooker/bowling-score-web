@@ -14,6 +14,7 @@ const Frame = ({ frame, active }) => {
       <div className="flex border-b border-black">
         <span className="flex-grow border-r border-black text-center">{frame.throw_1.length}</span>
         <span className="flex-grow text-center">{frame.throw_2.length}</span>
+        {frame.number === 10 && <span className="flex-grow border-l border-black text-center">{frame.throw_3 !== null ? frame.throw_3 : null}</span>}
       </div>
       <div className="h-6 border-b border-black text-center">{frame.score}</div>
       <div>pins</div>
