@@ -20,4 +20,20 @@
       @apply bg-black text-white;
     }
   }
+
+  &--pin {
+    @apply block w-12 h-12 m-2 border rounded-full flex items-center justify-center;
+
+    &:focus {
+      @apply outline-none shadow-outline;
+    }
+
+    &:disabled {
+      @apply bg-grey-light border-grey-light text-grey-light;
+    }
+
+    &.btn--selected {
+      @apply bg-blue border-blue text-white;
+    }
+  }
 }
