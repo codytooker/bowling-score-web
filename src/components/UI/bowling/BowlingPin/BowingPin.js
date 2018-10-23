@@ -8,14 +8,19 @@ class BowlingPin extends Component {
   }
 
   render() {
-    const { number, selected } = this.props;
+    const { number, selected, disabled } = this.props;
     const pinClass = cs(
-      'block w-12 h-12 m-2 border rounded-full flex items-center justify-center focus:outline-none focus:shadow-outline',
-      { 'bg-blue border-blue text-white': selected },
+      'btn btn--pin',
+      { 'btn--selected': selected },
     );
 
     return (
-      <button onClick={this.handleClick} className={pinClass}>{number}</button>
+      <button
+        onClick={this.handleClick}
+        className={pinClass}
+        disabled={disabled}>
+        {number}
+      </button>
     );
   }
 }
