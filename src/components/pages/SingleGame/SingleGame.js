@@ -8,16 +8,36 @@ import { fetchGamesIfNeeded } from '../../../actions/game';
 import { getGameByID, isFetching } from '../../../reducers/games';
 
 class SingleGame extends Component {
+  pins = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   state = {
     currentFrame: 1,
     currentBall: 1,
+    selectedPins: [],
   };
 
   componentDidMount() {
     this.props.fetchGamesIfNeeded();
   }
 
+  handlePinSelect = (pin) => {
+    const { selectedPins } = this.state;
+    const index = selectedPins.indexOf(pin);
+    const newPins = [...selectedPins];
+
+    if (index !== -1) {
+      newPins.splice(index, 1);
+    } else {
+      newPins.push(pin);
+    }
+
+    this.setState({
+      selectedPins: newPins,
+    });
+  }
+
   handleNext = () => {
+    // TODO: here we should fire an action that gets the selected inputs from pin input
     const { currentFrame, currentBall } = this.state;
 
     if (currentBall === 1) {
@@ -38,7 +58,7 @@ class SingleGame extends Component {
 
   render() {
     const { game, isLoading } = this.props;
-    const { currentBall, currentFrame } = this.state;
+    const { currentBall, currentFrame, selectedPins } = this.state;
 
     if (isLoading) {
       return <div>Loading</div>;
@@ -48,6 +68,8 @@ class SingleGame extends Component {
       return <div>Something needs to happen if id doesn't exist</div>;
     }
 
+    console.log(game);
+
     return (
       <DefaultLayout>
         <div className="flex flex-col">
@@ -55,8 +77,14 @@ class SingleGame extends Component {
           <FullBoard
             currentFrame={currentFrame}
             currentBall={currentBall}
-            frames={game.frames} />
-          <PinCounter />
+            frames={game.frames}
+          />
+          <PinCounter
+            frame={game.frames.find(frame => frame.number === currentFrame)}
+            handlePinClick={this.handlePinSelect}
+            currentBall={currentBall}
+            selectedPins={selectedPins}
+          />
           <div className="py-6 px-2 flex justify-around">
             <button onClick={this.handleNext} className="btn btn--white" type="button">Prev</button>
             <button className="btn btn--white" type="button">Strike</button>

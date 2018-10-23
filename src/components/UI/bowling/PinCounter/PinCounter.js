@@ -1,55 +1,37 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import BowlingPin from '../BowlingPin/BowingPin';
 
 class PinCounter extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      pins: [],
-    };
-
-    this.handlePinClick = this.handlePinClick.bind(this);
-  }
-
-  handlePinClick(pin) {
-    const { pins } = this.state;
-    const index = pins.indexOf(pin);
-    const newPins = [...pins];
-
-    if (index !== -1) {
-      newPins.splice(index, 1);
-    } else {
-      newPins.push(pin);
-    }
-
-    this.setState({
-      pins: newPins,
-    });
-  }
-
   render() {
-    const { pins } = this.state;
+    const { selectedPins, handlePinClick } = this.props;
 
     return (
       <div className="bg-white flex flex-wrap justify-center">
-        <BowlingPin number={7} handleClick={this.handlePinClick} selected={pins.indexOf(7) !== -1} />
-        <BowlingPin number={8} handleClick={this.handlePinClick} selected={pins.indexOf(8) !== -1} />
-        <BowlingPin number={9} handleClick={this.handlePinClick} selected={pins.indexOf(9) !== -1} />
-        <BowlingPin number={10} handleClick={this.handlePinClick} selected={pins.indexOf(10) !== -1} />
+        <BowlingPin number={7} handleClick={handlePinClick} selected={selectedPins.indexOf(7) !== -1} />
+        <BowlingPin number={8} handleClick={handlePinClick} selected={selectedPins.indexOf(8) !== -1} />
+        <BowlingPin number={9} handleClick={handlePinClick} selected={selectedPins.indexOf(9) !== -1} />
+        <BowlingPin number={10} handleClick={handlePinClick} selected={selectedPins.indexOf(10) !== -1} />
         <div className="w-full" />
-        <BowlingPin number={4} handleClick={this.handlePinClick} selected={pins.indexOf(4) !== -1} />
-        <BowlingPin number={5} handleClick={this.handlePinClick} selected={pins.indexOf(5) !== -1} />
-        <BowlingPin number={6} handleClick={this.handlePinClick} selected={pins.indexOf(6) !== -1} />
+        <BowlingPin number={4} handleClick={handlePinClick} selected={selectedPins.indexOf(4) !== -1} />
+        <BowlingPin number={5} handleClick={handlePinClick} selected={selectedPins.indexOf(5) !== -1} />
+        <BowlingPin number={6} handleClick={handlePinClick} selected={selectedPins.indexOf(6) !== -1} />
         <div className="w-full" />
-        <BowlingPin number={2} handleClick={this.handlePinClick} selected={pins.indexOf(2) !== -1} />
-        <BowlingPin number={3} handleClick={this.handlePinClick} selected={pins.indexOf(3) !== -1} />
+        <BowlingPin number={2} handleClick={handlePinClick} selected={selectedPins.indexOf(2) !== -1} />
+        <BowlingPin number={3} handleClick={handlePinClick} selected={selectedPins.indexOf(3) !== -1} />
         <div className="w-full" />
-        <BowlingPin number={1} handleClick={this.handlePinClick} selected={pins.indexOf(1) !== -1} />
+        <BowlingPin number={1} handleClick={handlePinClick} selected={selectedPins.indexOf(1) !== -1} />
       </div>
     );
   }
 }
+
+PinCounter.propTypes = {
+  frame: PropTypes.object.isRequired,
+  currentBall: PropTypes.number.isRequired,
+  handlePinClick: PropTypes.func.isRequired,
+  selectedPins: PropTypes.array,
+};
 
 export default PinCounter;
