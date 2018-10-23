@@ -9,19 +9,58 @@ class PinCounter extends Component {
 
     return (
       <div className="bg-white flex flex-wrap justify-center">
-        <BowlingPin number={7} handleClick={handlePinClick} selected={selectedPins.indexOf(7) !== -1} />
-        <BowlingPin number={8} handleClick={handlePinClick} selected={selectedPins.indexOf(8) !== -1} />
-        <BowlingPin number={9} handleClick={handlePinClick} selected={selectedPins.indexOf(9) !== -1} />
-        <BowlingPin number={10} handleClick={handlePinClick} selected={selectedPins.indexOf(10) !== -1} />
+        <BowlingPin
+          number={7}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(7) !== -1} />
+        <BowlingPin
+          number={8}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(8) !== -1}
+        />
+        <BowlingPin
+          number={9}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(9) !== -1}
+        />
+        <BowlingPin
+          number={10}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(10) !== -1}
+        />
         <div className="w-full" />
-        <BowlingPin number={4} handleClick={handlePinClick} selected={selectedPins.indexOf(4) !== -1} />
-        <BowlingPin number={5} handleClick={handlePinClick} selected={selectedPins.indexOf(5) !== -1} />
-        <BowlingPin number={6} handleClick={handlePinClick} selected={selectedPins.indexOf(6) !== -1} />
+        <BowlingPin
+          number={4}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(4) !== -1}
+        />
+        <BowlingPin
+          number={5}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(5) !== -1}
+        />
+        <BowlingPin
+          number={6}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(6) !== -1}
+        />
         <div className="w-full" />
-        <BowlingPin number={2} handleClick={handlePinClick} selected={selectedPins.indexOf(2) !== -1} />
-        <BowlingPin number={3} handleClick={handlePinClick} selected={selectedPins.indexOf(3) !== -1} />
+        <BowlingPin
+          number={2}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(2) !== -1}
+        />
+        <BowlingPin
+          number={3}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(3) !== -1}
+        />
         <div className="w-full" />
-        <BowlingPin number={1} handleClick={handlePinClick} selected={selectedPins.indexOf(1) !== -1} />
+        <BowlingPin
+          number={1}
+          handleClick={handlePinClick}
+          selected={selectedPins.indexOf(1) !== -1}
+        />
       </div>
     );
   }
