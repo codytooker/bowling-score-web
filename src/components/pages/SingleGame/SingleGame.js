@@ -5,6 +5,7 @@ import { FullBoard, PinCounter } from '../../UI/bowling';
 import { DefaultLayout } from '../../UI/Layouts';
 import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
+import { setThrow } from '../../../actions/frame';
 import { getGameByID, isFetching } from '../../../reducers/games';
 
 class SingleGame extends Component {
@@ -38,22 +39,31 @@ class SingleGame extends Component {
 
   handleNext = () => {
     // TODO: here we should fire an action that gets the selected inputs from pin input
-    const { currentFrame, currentBall } = this.state;
+    const { currentFrame, currentBall, selectedPins } = this.state;
+    const { game, setThrow } = this.props;
 
-    if (currentBall === 1) {
-      this.setState({
-        currentBall: 2,
+    const frameID = game.frames.find(frame => frame.number === currentFrame).id;
+
+    setThrow(frameID, currentBall, selectedPins)
+      .then(() => {
+        if (currentBall === 1) {
+          this.setState({
+            currentBall: 2,
+            selectedPins: [],
+          });
+        } else if (currentFrame === 10 && currentBall === 2) {
+          this.setState({
+            currentBall: 3,
+            selectedPins: [],
+          });
+        } else {
+          this.setState({
+            currentBall: 1,
+            currentFrame: currentFrame + 1,
+            selectedPins: [],
+          });
+        }
       });
-    } else if (currentFrame === 10 && currentBall === 2) {
-      this.setState({
-        currentBall: 3,
-      });
-    } else {
-      this.setState({
-        currentBall: 1,
-        currentFrame: currentFrame + 1,
-      });
-    }
   }
 
   render() {
@@ -67,8 +77,6 @@ class SingleGame extends Component {
     if (typeof game === 'undefined') {
       return <div>Something needs to happen if id doesn't exist</div>;
     }
-
-    console.log(game);
 
     return (
       <DefaultLayout>
@@ -107,7 +115,7 @@ const mapStateToProps = (state, ownProps) => ({
   game: getGameByID(state, ownProps.match.params.id),
   isLoading: isFetching(state),
 });
-export default connect(mapStateToProps, { fetchGamesIfNeeded })(SingleGame);
+export default connect(mapStateToProps, { fetchGamesIfNeeded, setThrow })(SingleGame);
 
 
 // TODO: Next shouldn't be able to go to the next frame if the previous one isn't finished

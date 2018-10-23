@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
   RECEIVE_GAMES,
+  UPDATE_FRAME,
 } from '../actions/types';
 
 const byId = (state = {}, action) => {
@@ -9,6 +10,12 @@ const byId = (state = {}, action) => {
     case RECEIVE_GAMES:
       return {
         ...action.payload.entities.frames,
+      };
+
+    case UPDATE_FRAME:
+      return {
+        ...state,
+        [action.payload.id]: action.payload,
       };
 
     default:
