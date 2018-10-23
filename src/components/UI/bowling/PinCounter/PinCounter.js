@@ -6,7 +6,6 @@ import BowlingPin from '../BowlingPin/BowingPin';
 class PinCounter extends Component {
   render() {
     const { selectedPins, handlePinClick, frame, currentBall } = this.props;
-    console.log(frame);
     return (
       <div className="bg-white flex flex-wrap justify-center">
         <BowlingPin
