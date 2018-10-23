@@ -21,6 +21,19 @@ class SingleGame extends Component {
     this.props.fetchGamesIfNeeded();
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (typeof nextProps.game === 'undefined') {
+      return null;
+    }
+
+    console.log(nextProps);
+
+    const frame = nextProps.game.frames.find(frame => frame.number === prevState.currentFrame);
+    return {
+      selectedPins: frame[`throw_${prevState.currentBall}`],
+    };
+  }
+
   handlePinSelect = (pin) => {
     const { selectedPins } = this.state;
     const index = selectedPins.indexOf(pin);
@@ -38,7 +51,6 @@ class SingleGame extends Component {
   }
 
   handleNext = () => {
-    // TODO: here we should fire an action that gets the selected inputs from pin input
     const { currentFrame, currentBall, selectedPins } = this.state;
     const { game, setThrow } = this.props;
 
@@ -49,20 +61,21 @@ class SingleGame extends Component {
         if (currentBall === 1) {
           this.setState({
             currentBall: 2,
-            selectedPins: [],
           });
         } else if (currentFrame === 10 && currentBall === 2) {
           this.setState({
             currentBall: 3,
-            selectedPins: [],
           });
         } else {
           this.setState({
             currentBall: 1,
             currentFrame: currentFrame + 1,
-            selectedPins: [],
           });
         }
+
+        this.setState({
+          selectedPins: [],
+        });
       });
   }
 
