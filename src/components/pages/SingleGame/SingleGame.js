@@ -15,22 +15,29 @@ class SingleGame extends Component {
     currentFrame: 1,
     currentBall: 1,
     selectedPins: [],
+    navigated: false,
   };
 
   componentDidMount() {
     this.props.fetchGamesIfNeeded();
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (typeof nextProps.game === 'undefined') {
+  static getDerivedStateFromProps(props, state) {
+    if (typeof props.game === 'undefined') {
       return null;
     }
 
-    console.log(nextProps);
+    if (state.navigated) {
+      return {
+        navigated: false,
+      };
+    }
 
-    const frame = nextProps.game.frames.find(frame => frame.number === prevState.currentFrame);
+    console.log('state:', state);
+
+    const frame = props.game.frames.find(frame => frame.number === state.currentFrame);
     return {
-      selectedPins: frame[`throw_${prevState.currentBall}`],
+      selectedPins: frame[`throw_${state.currentBall}`],
     };
   }
 
@@ -47,6 +54,7 @@ class SingleGame extends Component {
 
     this.setState({
       selectedPins: newPins,
+      navigated: true,
     });
   }
 
