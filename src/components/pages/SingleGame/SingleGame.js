@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { FullBoard, PinCounter, FrameControls } from '../../UI/bowling';
+import { FullBoard, PinCounter } from '../../UI/bowling';
 import { DefaultLayout } from '../../UI/Layouts';
 import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
@@ -17,23 +17,28 @@ class SingleGame extends Component {
     this.props.fetchGamesIfNeeded();
   }
 
-  updateCurrentFrame = (forward = true) => {
-    const { currentFrame } = this.state;
-    let newFrame = currentFrame;
+  handleNext = () => {
+    const { currentFrame, currentBall } = this.state;
 
-    if (forward && currentFrame < 10) {
-      newFrame = currentFrame + 1;
+    if (currentBall === 1) {
+      this.setState({
+        currentBall: 2,
+      });
+    } else if (currentFrame === 10 && currentBall === 2) {
+      this.setState({
+        currentBall: 3,
+      });
+    } else {
+      this.setState({
+        currentBall: 1,
+        currentFrame: currentFrame + 1,
+      });
     }
-
-    if (!forward && currentFrame > 1) {
-      newFrame = currentFrame - 1;
-    }
-
-    this.setState({ currentFrame: newFrame });
   }
 
   render() {
     const { game, isLoading } = this.props;
+    const { currentBall, currentFrame } = this.state;
 
     if (isLoading) {
       return <div>Loading</div>;
@@ -47,9 +52,23 @@ class SingleGame extends Component {
       <DefaultLayout>
         <div className="flex flex-col">
           <Heading>{game.title}</Heading>
-          <FullBoard currentFrame={this.state.currentFrame} currentBall={this.state.currentBall} frames={game.frames} />
+          <FullBoard
+            currentFrame={currentFrame}
+            currentBall={currentBall}
+            frames={game.frames} />
           <PinCounter />
-          <FrameControls updateFrame={this.updateCurrentFrame} />
+          <div className="py-6 px-2 flex justify-around">
+            <button onClick={this.handleNext} className="btn btn--white" type="button">Prev</button>
+            <button className="btn btn--white" type="button">Strike</button>
+            <button className="btn btn--white" type="button">Spare</button>
+            <button
+              className="btn btn--white"
+              onClick={this.handleNext}
+              disabled={currentFrame === 10 && currentBall === 3}
+              type="button">
+              Next
+            </button>
+          </div>
         </div>
       </DefaultLayout>
     );
@@ -61,3 +80,8 @@ const mapStateToProps = (state, ownProps) => ({
   isLoading: isFetching(state),
 });
 export default connect(mapStateToProps, { fetchGamesIfNeeded })(SingleGame);
+
+
+// TODO: Next shouldn't be able to go to the next frame if the previous one isn't finished
+// TODO: Strike should only work when first ball is active
+// TODO: Spare should only work when second ball is active
