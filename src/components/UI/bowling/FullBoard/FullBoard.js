@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 
 import Frame from '../Frame/Frame';
 
-const FullBoard = ({ currentFrame, frames }) => (
-    <div className="flex items-stretch select-none">
-      {
-        frames.map(frame => (
-          <Frame frame={frame} key={frame.id} active={frame === currentFrame} />
-        ))
-      }
-    </div>
+const FullBoard = ({ currentFrame, currentBall, frames }) => (
+  <div className="flex items-stretch select-none">
+    {
+      frames.map(frame => (
+        <Frame frame={frame} key={frame.id} active={frame.id === currentFrame} currentBall={currentBall} />
+      ))
+    }
+  </div>
 );
 
 FullBoard.propTypes = {
   currentFrame: PropTypes.number.isRequired,
+  currentBall: PropTypes.number.isRequired,
   frames: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     number: PropTypes.number.isRequired,

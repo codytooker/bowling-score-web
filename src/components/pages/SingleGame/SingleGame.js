@@ -10,6 +10,7 @@ import { getGameByID, isFetching } from '../../../reducers/games';
 class SingleGame extends Component {
   state = {
     currentFrame: 1,
+    currentBall: 1,
   };
 
   componentDidMount() {
@@ -46,7 +47,7 @@ class SingleGame extends Component {
       <DefaultLayout>
         <div className="flex flex-col">
           <Heading>{game.title}</Heading>
-          <FullBoard currentFrame={this.state.currentFrame} frames={game.frames} />
+          <FullBoard currentFrame={this.state.currentFrame} currentBall={this.state.currentBall} frames={game.frames} />
           <PinCounter />
           <FrameControls updateFrame={this.updateCurrentFrame} />
         </div>
