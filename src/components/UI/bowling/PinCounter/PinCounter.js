@@ -8,7 +8,7 @@ class PinCounter extends Component {
     const { selectedPins, handlePinClick, frame, currentBall } = this.props;
 
     return (
-      <div className="bg-white">
+      <div className="bg-white py-4">
         <div className="my-2 flex justify-center">
           <BowlingPin
             number={7}
