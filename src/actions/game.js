@@ -26,10 +26,11 @@ const receiveGames = data => ({
   },
 });
 
-const addGame = game => ({
+const addGame = data => ({
   type: ADD_GAME,
   payload: {
-    game,
+    receivedAt: Date.now(),
+    entities: data.entities,
   },
 });
 
@@ -65,6 +66,8 @@ export const createGame = values => (dispatch, getState) => {
   const data = withUser(values, getState());
   return axios.post('/games', data)
     .then((res) => {
-      dispatch(addGame(res.data.data));
+      const normalizedData = normalize(res.data.data, schema.game);
+      console.log(normalizedData);
+      dispatch(addGame(normalizedData));
     });
 };

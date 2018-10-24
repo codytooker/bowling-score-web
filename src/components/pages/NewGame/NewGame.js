@@ -12,13 +12,13 @@ import { createGame } from '../../../actions/game';
 class NewGame extends Component {
   onSubmit = (values, actions) => {
     this.props.createGame(values)
-      .then(res => {
+      .then(() => {
         this.props.history.push('/games');
       })
-      .catch(error => {
+      .catch((error) => {
         actions.setSubmitting(false);
         actions.setErrors(error.response.data.errors);
-      })
+      });
   }
 
   render() {

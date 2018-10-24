@@ -11,15 +11,11 @@ import { getFrameByID } from './frames';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
+    case ADD_GAME:
     case RECEIVE_GAMES:
       return {
-        ...action.payload.entities.games,
-      };
-
-    case ADD_GAME:
-      return {
         ...state,
-        [action.payload.game.id]: action.payload.game,
+        ...action.payload.entities.games,
       };
 
     default:
@@ -29,11 +25,12 @@ const byId = (state = {}, action) => {
 
 const allIds = (state = [], action) => {
   switch (action.type) {
-    case RECEIVE_GAMES:
-      return Object.keys(action.payload.entities.games).map(Number);
-
     case ADD_GAME:
-      return [...state, action.payload.game.id];
+    case RECEIVE_GAMES:
+      return [
+        ...state,
+        ...Object.keys(action.payload.entities.games).map(Number),
+      ];
 
     default:
       return state;
