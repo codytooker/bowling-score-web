@@ -15,31 +15,33 @@ class SingleGame extends Component {
     currentFrame: 1,
     currentBall: 1,
     selectedPins: [],
-    navigated: false,
+    isSelecting: false,
   };
 
   componentDidMount() {
     this.props.fetchGamesIfNeeded();
   }
 
-  // static getDerivedStateFromProps(props, state) {
-  //   if (typeof props.game === 'undefined') {
-  //     return null;
-  //   }
+  componentDidUpdate() {
+    const { game } = this.props;
+    const { isSelecting, currentFrame, currentBall } = this.state;
 
-  //   if (state.navigated) {
-  //     return {
-  //       navigated: false,
-  //     };
-  //   }
+    if (typeof game === 'undefined' || isSelecting) {
+      return;
+    }
 
-  //   console.log('state:', state);
+    const frame = game.frames.find(frame => frame.number === currentFrame);
 
-  //   const frame = props.game.frames.find(frame => frame.number === state.currentFrame);
-  //   return {
-  //     selectedPins: frame[`throw_${state.currentBall}`],
-  //   };
-  // }
+    let newSelectedPins = [];
+    if (frame[`throw_${currentBall}`]) {
+      newSelectedPins = frame[`throw_${currentBall}`];
+    }
+
+    this.setState({
+      selectedPins: newSelectedPins,
+      isSelecting: true,
+    });
+  }
 
   handlePinSelect = (pin) => {
     const { selectedPins } = this.state;
@@ -52,7 +54,6 @@ class SingleGame extends Component {
       newPins.push(pin);
     }
 
-    console.log('handle pin select');
     this.setState({
       selectedPins: newPins,
     });
@@ -83,6 +84,7 @@ class SingleGame extends Component {
 
         this.setState({
           selectedPins: [],
+          isSelecting: false,
         });
       });
   }
