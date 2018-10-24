@@ -60,9 +60,27 @@ class SingleGame extends Component {
     });
   }
 
+  handlePrev = () => {
+    const { currentFrame } = this.state;
+
+    this.setState({
+      currentFrame: currentFrame - 1,
+      editMode: false,
+    });
+  }
+
   handleNext = () => {
-    const { currentFrame, currentBall, selectedPins } = this.state;
+    const { currentFrame, currentBall, selectedPins, editMode } = this.state;
     const { game, setThrow } = this.props;
+
+    const nextFrame = game.frames.find(frame => frame.number === currentFrame + 1);
+
+    if (!editMode && nextFrame.throw_1 !== null) {
+      this.setState({
+        currentFrame: currentFrame + 1,
+      });
+      return;
+    }
 
     const frame = game.frames.find(frame => frame.number === currentFrame);
 
@@ -72,7 +90,6 @@ class SingleGame extends Component {
       knockedPins = this.pins.filter(pin => !selectedPins.includes(pin));
     } else {
       framePinfall = [...frame.throw_1, ...selectedPins];
-      console.log(framePinfall);
       knockedPins = this.pins.filter(pin => !framePinfall.includes(pin));
     }
 
@@ -108,7 +125,7 @@ class SingleGame extends Component {
 
   render() {
     const { game, isLoading } = this.props;
-    const { currentBall, currentFrame, selectedPins } = this.state;
+    const { currentBall, currentFrame, selectedPins, editMode } = this.state;
 
     if (isLoading) {
       return <div>Loading</div>;
@@ -127,16 +144,18 @@ class SingleGame extends Component {
             currentBall={currentBall}
             frames={game.frames}
           />
-          <PinCounter
-            frame={game.frames.find(frame => frame.number === currentFrame)}
-            handlePinClick={this.handlePinSelect}
-            currentBall={currentBall}
-            selectedPins={selectedPins}
-          />
+          { editMode
+            && <PinCounter
+              frame={game.frames.find(frame => frame.number === currentFrame)}
+              handlePinClick={this.handlePinSelect}
+              currentBall={currentBall}
+              selectedPins={selectedPins}
+            />
+          }
           <div className="py-6 px-2 flex justify-around">
             <button className="btn btn--white" type="button">Strike</button>
             <button className="btn btn--white" type="button">Spare</button>
-            <button onClick={this.handleNext} className="btn btn--white" type="button">Prev</button>
+            <button onClick={this.handlePrev} className="btn btn--white" type="button">Prev</button>
             <button
               className="btn btn--white"
               onClick={this.handleNext}
