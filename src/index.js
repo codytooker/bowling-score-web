@@ -21,8 +21,8 @@ const store = createStore(
   { auth: { user: localStorage.getItem('token') && jwtDecode(localStorage.getItem('token')).user } },
   compose(
     applyMiddleware(reduxThunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  ),
 );
 
 ReactDOM.render(
@@ -31,7 +31,8 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('root'));
+  document.getElementById('root'),
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
