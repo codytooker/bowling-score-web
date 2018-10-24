@@ -34,7 +34,7 @@ class SingleGame extends Component {
 
     let newSelectedPins = [];
     if (frame[`throw_${currentBall}`]) {
-      newSelectedPins = frame[`throw_${currentBall}`];
+      newSelectedPins = this.pins.filter(pin => !frame[`throw_${currentBall}`].includes(pin));
     }
 
     this.setState({
@@ -63,9 +63,19 @@ class SingleGame extends Component {
     const { currentFrame, currentBall, selectedPins } = this.state;
     const { game, setThrow } = this.props;
 
-    const frameID = game.frames.find(frame => frame.number === currentFrame).id;
+    const frame = game.frames.find(frame => frame.number === currentFrame);
 
-    setThrow(frameID, currentBall, selectedPins)
+    let knockedPins;
+    let framePinfall;
+    if (currentBall === 1) {
+      knockedPins = this.pins.filter(pin => !selectedPins.includes(pin));
+    } else {
+      framePinfall = [...frame.throw_1, ...selectedPins];
+      console.log(framePinfall);
+      knockedPins = this.pins.filter(pin => !framePinfall.includes(pin));
+    }
+
+    setThrow(frame.id, currentBall, knockedPins)
       .then(() => {
         if (currentBall === 1) {
           this.setState({
