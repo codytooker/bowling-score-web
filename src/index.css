@@ -711,6 +711,16 @@ body {
           user-select: none;
 }
 
+.btn:disabled {
+    background-color: #b8c2cc;
+    color: #8795a1;
+  }
+
+.btn:disabled:hover {
+      background-color: #b8c2cc;
+      color: #8795a1;
+    }
+
 .btn--lg {
     padding-top: 1rem;
     padding-bottom: 1rem;

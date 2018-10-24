@@ -2,7 +2,11 @@
   @apply inline-block py-2 px-4 rounded font-bold text-black no-underline select-none;
 
   &:disabled {
-    @apply bg-grey-lightest text white;
+    @apply bg-grey text-grey-dark;
+
+    &:hover {
+      @apply bg-grey text-grey-dark;
+    }
   }
 
   &--lg {
