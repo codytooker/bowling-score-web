@@ -8,6 +8,9 @@ import { fetchGamesIfNeeded } from '../../../actions/game';
 import { setThrow } from '../../../actions/frame';
 import { getGameByID, isFetching } from '../../../reducers/games';
 
+import { Button } from '../../../styles/components/Button';
+import { ButtonContainer } from './SingleGameStyles';
+
 class SingleGame extends Component {
   pins = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -137,35 +140,27 @@ class SingleGame extends Component {
 
     return (
       <DefaultLayout>
-        <div className="flex flex-col">
-          <Heading>{game.title}</Heading>
-          <FullBoard
-            currentFrame={currentFrame}
+        <Heading>{game.title}</Heading>
+        <FullBoard
+          currentFrame={currentFrame}
+          currentBall={currentBall}
+          frames={game.frames}
+        />
+        { editMode
+          && <PinCounter
+            frame={game.frames.find(frame => frame.number === currentFrame)}
+            handlePinClick={this.handlePinSelect}
             currentBall={currentBall}
-            frames={game.frames}
+            selectedPins={selectedPins}
           />
-          { editMode
-            && <PinCounter
-              frame={game.frames.find(frame => frame.number === currentFrame)}
-              handlePinClick={this.handlePinSelect}
-              currentBall={currentBall}
-              selectedPins={selectedPins}
-            />
-          }
-          <div className="py-6 px-2 flex justify-around">
-            <button className="btn btn--white" type="button">Strike</button>
-            <button className="btn btn--white" type="button">Spare</button>
-            <button onClick={this.handlePrev} className="btn btn--white" type="button">Prev</button>
-            <button
-              className="btn btn--white"
-              onClick={this.handleNext}
-              disabled={currentFrame === 10 && currentBall === 3}
-              type="button">
-              Next
-            </button>
-            <button onClick={this.toggleEditMode} className="btn btn--white" type="button">Edit Mode</button>
-          </div>
-        </div>
+        }
+        <ButtonContainer>
+          <Button white disabled={currentBall === 2} type="button">Strike</Button>
+          <Button white disabled={currentBall === 1} type="button">Spare</Button>
+          <Button white onClick={this.handlePrev} type="button" disabled={currentFrame === 1}>Prev</Button>
+          <Button white onClick={this.handleNext} disabled={currentFrame === 10 && currentBall === 3} type="button">Next</Button>
+          <Button white onClick={this.toggleEditMode} type="button">Edit Mode</Button>
+        </ButtonContainer>
       </DefaultLayout>
     );
   }
