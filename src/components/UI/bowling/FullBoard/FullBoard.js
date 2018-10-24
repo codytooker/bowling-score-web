@@ -7,7 +7,7 @@ const FullBoard = ({ currentFrame, currentBall, frames }) => (
   <div className="flex items-stretch select-none">
     {
       frames.map(frame => (
-        <Frame frame={frame} key={frame.id} active={frame.id === currentFrame} currentBall={currentBall} />
+        <Frame frame={frame} key={frame.id} active={frame.number === currentFrame} currentBall={currentBall} />
       ))
     }
   </div>
