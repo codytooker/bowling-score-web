@@ -3,12 +3,54 @@ import PropTypes from 'prop-types';
 
 import BowlingPin from '../BowlingPin/BowingPin';
 
-class PinCounter extends Component {
+class PinSelector extends Component {
   render() {
     const { selectedPins, handlePinClick, frame, currentBall } = this.props;
 
     return (
-      <div className="bg-white py-4">
+      <div className="bg-white flex flex-col-reverse py-4">
+        <div className="my-2 flex justify-center">
+          <BowlingPin
+            number={1}
+            handleClick={handlePinClick}
+            selected={selectedPins.indexOf(1) !== -1}
+            disabled={currentBall === 2 && frame.throw_1.indexOf(1) !== -1}
+          />
+        </div>
+        <div className="my-2 flex justify-center">
+          <BowlingPin
+            number={2}
+            handleClick={handlePinClick}
+            selected={selectedPins.indexOf(2) !== -1}
+            disabled={currentBall === 2 && frame.throw_1.indexOf(2) !== -1}
+          />
+          <BowlingPin
+            number={3}
+            handleClick={handlePinClick}
+            selected={selectedPins.indexOf(3) !== -1}
+            disabled={currentBall === 2 && frame.throw_1.indexOf(3) !== -1}
+          />
+        </div>
+        <div className="my-2 flex justify-center">
+          <BowlingPin
+            number={4}
+            handleClick={handlePinClick}
+            selected={selectedPins.indexOf(4) !== -1}
+            disabled={currentBall === 2 && frame.throw_1.indexOf(4) !== -1}
+          />
+          <BowlingPin
+            number={5}
+            handleClick={handlePinClick}
+            selected={selectedPins.indexOf(5) !== -1}
+            disabled={currentBall === 2 && frame.throw_1.indexOf(5) !== -1}
+          />
+          <BowlingPin
+            number={6}
+            handleClick={handlePinClick}
+            selected={selectedPins.indexOf(6) !== -1}
+            disabled={currentBall === 2 && frame.throw_1.indexOf(6) !== -1}
+          />
+        </div>
         <div className="my-2 flex justify-center">
           <BowlingPin
             number={7}
@@ -35,58 +77,16 @@ class PinCounter extends Component {
             disabled={currentBall === 2 && frame.throw_1.indexOf(10) !== -1}
           />
         </div>
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={4}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(4) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(4) !== -1}
-          />
-          <BowlingPin
-            number={5}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(5) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(5) !== -1}
-          />
-          <BowlingPin
-            number={6}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(6) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(6) !== -1}
-          />
-        </div>
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={2}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(2) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(2) !== -1}
-          />
-          <BowlingPin
-            number={3}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(3) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(3) !== -1}
-          />
-        </div>
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={1}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(1) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(1) !== -1}
-          />
-        </div>
       </div>
     );
   }
 }
 
-PinCounter.propTypes = {
+PinSelector.propTypes = {
   frame: PropTypes.object.isRequired,
   currentBall: PropTypes.number.isRequired,
   handlePinClick: PropTypes.func.isRequired,
   selectedPins: PropTypes.array,
 };
 
-export default PinCounter;
+export default PinSelector;

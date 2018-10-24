@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { FullBoard, PinCounter } from '../../UI/bowling';
+import { FullBoard, PinSelector, PinDisplay } from '../../UI/bowling';
 import { DefaultLayout } from '../../UI/Layouts';
 import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
@@ -144,13 +144,15 @@ class SingleGame extends Component {
           frames={game.frames}
         />
         { editMode
-          && <PinCounter
+          ? <PinSelector
             frame={game.frames.find(frame => frame.number === currentFrame)}
             handlePinClick={this.handlePinSelect}
             currentBall={currentBall}
             selectedPins={selectedPins}
           />
+          : <PinDisplay frame={game.frames.find(frame => frame.number === currentFrame)} />
         }
+
         <div className="py-6 px-2 flex justify-around">
           <button className="btn btn--white" disabled={currentBall === 2} type="button">Strike</button>
           <button className="btn btn--white" disabled={currentBall === 1} type="button">Spare</button>
