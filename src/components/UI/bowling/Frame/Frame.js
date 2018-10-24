@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cs from 'classnames';
 
+import MiniPinDisplay from '../MiniPinDisplay/MiniPinDisplay';
 import Ball from '../Ball/Ball';
 
 class Frame extends Component {
@@ -48,7 +49,9 @@ class Frame extends Component {
           {frame.number === 10 && <Ball className="border-l" score={this.getBallScore(3)} active={active && currentBall === 3} />}
         </div>
         <div className="h-6 border-b border-black text-center">{frame.score}</div>
-        <div>pins</div>
+        <div>
+          <MiniPinDisplay frame={frame} />
+        </div>
       </div>
     );
   }
