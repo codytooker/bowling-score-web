@@ -16,6 +16,7 @@ class SingleGame extends Component {
     currentBall: 1,
     selectedPins: [],
     isSelecting: false,
+    editMode: true,
   };
 
   componentDidMount() {
@@ -99,6 +100,12 @@ class SingleGame extends Component {
       });
   }
 
+  toggleEditMode = () => {
+    this.setState({
+      editMode: !this.state.editMode,
+    });
+  }
+
   render() {
     const { game, isLoading } = this.props;
     const { currentBall, currentFrame, selectedPins } = this.state;
@@ -127,9 +134,9 @@ class SingleGame extends Component {
             selectedPins={selectedPins}
           />
           <div className="py-6 px-2 flex justify-around">
-            <button onClick={this.handleNext} className="btn btn--white" type="button">Prev</button>
             <button className="btn btn--white" type="button">Strike</button>
             <button className="btn btn--white" type="button">Spare</button>
+            <button onClick={this.handleNext} className="btn btn--white" type="button">Prev</button>
             <button
               className="btn btn--white"
               onClick={this.handleNext}
@@ -137,6 +144,7 @@ class SingleGame extends Component {
               type="button">
               Next
             </button>
+            <button onClick={this.toggleEditMode} className="btn btn--white" type="button">Edit Mode</button>
           </div>
         </div>
       </DefaultLayout>
