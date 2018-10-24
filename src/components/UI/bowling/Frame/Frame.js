@@ -5,7 +5,31 @@ import cs from 'classnames';
 import Ball from '../Ball/Ball';
 
 class Frame extends Component {
-  getBallScore = ball => (ball !== null ? ball.length : '');
+  getBallScore = (number) => {
+    const { frame } = this.props;
+
+    if (number === 1) {
+      if (frame.throw_1 === null) {
+        return '';
+      }
+
+      if (frame.throw_1.length === 10) {
+        return 'X';
+      }
+
+      return frame.throw_1.length;
+    } if (number === 2) {
+      if (frame.throw_2 === null) {
+        return '';
+      }
+
+      if (frame.throw_1.length + frame.throw_2.length === 10) {
+        return '/';
+      }
+
+      return frame.throw_2.length;
+    }
+  };
 
   render() {
     const { frame, active, currentBall } = this.props;
@@ -19,9 +43,9 @@ class Frame extends Component {
       <div className={frameClass}>
         <div className="border-b border-black text-center">{frame.number}</div>
         <div className="h-6 flex border-b border-black">
-          <Ball className="border-r" score={this.getBallScore(frame.throw_1)} active={active && currentBall === 1} />
-          <Ball score={this.getBallScore(frame.throw_2)} active={active && currentBall === 2} />
-          {frame.number === 10 && <Ball className="border-l" score={this.getBallScore(frame.throw_3)} active={active && currentBall === 3} />}
+          <Ball className="border-r" score={this.getBallScore(1)} active={active && currentBall === 1} />
+          <Ball score={this.getBallScore(2)} active={active && currentBall === 2} />
+          {frame.number === 10 && <Ball className="border-l" score={this.getBallScore(3)} active={active && currentBall === 3} />}
         </div>
         <div className="h-6 border-b border-black text-center">{frame.score}</div>
         <div>pins</div>
