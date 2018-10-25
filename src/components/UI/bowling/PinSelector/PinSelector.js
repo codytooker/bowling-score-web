@@ -4,79 +4,31 @@ import PropTypes from 'prop-types';
 import BowlingPin from '../BowlingPin/BowingPin';
 
 class PinSelector extends Component {
+  rows = [
+    [1],
+    [2, 3],
+    [4, 5, 6],
+    [7, 8, 9, 10],
+  ];
+
   render() {
     const { selectedPins, handlePinClick, frame, currentBall } = this.props;
 
     return (
-      <div className="bg-white flex flex-col-reverse py-4">
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={1}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(1) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(1) !== -1}
-          />
-        </div>
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={2}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(2) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(2) !== -1}
-          />
-          <BowlingPin
-            number={3}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(3) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(3) !== -1}
-          />
-        </div>
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={4}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(4) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(4) !== -1}
-          />
-          <BowlingPin
-            number={5}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(5) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(5) !== -1}
-          />
-          <BowlingPin
-            number={6}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(6) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(6) !== -1}
-          />
-        </div>
-        <div className="my-2 flex justify-center">
-          <BowlingPin
-            number={7}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(7) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(7) !== -1}
-          />
-          <BowlingPin
-            number={8}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(8) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(8) !== -1}
-          />
-          <BowlingPin
-            number={9}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(9) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(9) !== -1}
-          />
-          <BowlingPin
-            number={10}
-            handleClick={handlePinClick}
-            selected={selectedPins.indexOf(10) !== -1}
-            disabled={currentBall === 2 && frame.throw_1.indexOf(10) !== -1}
-          />
-        </div>
+      <div className="bg-white py-4 flex flex-col-reverse">
+        {this.rows.map((row, index) => (
+          <div key={index} className="my-2 flex justify-center">
+            {row.map(pin => (
+              <BowlingPin
+                key={pin}
+                number={pin}
+                handleClick={handlePinClick}
+                selected={selectedPins.indexOf(pin) !== -1}
+                disabled={currentBall === 2 && frame.throw_1.indexOf(pin) !== -1}
+              />
+            ))}
+          </div>
+        ))}
       </div>
     );
   }
