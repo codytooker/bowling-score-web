@@ -16,7 +16,6 @@ class SingleGame extends Component {
     currentBall: 1,
     selectedPins: [],
     isSelecting: false,
-    editMode: true,
   };
 
   componentDidMount() {
@@ -25,7 +24,7 @@ class SingleGame extends Component {
 
   componentDidUpdate() {
     const { game } = this.props;
-    const { isSelecting, currentFrame, currentBall, editMode } = this.state;
+    const { isSelecting, currentFrame, currentBall } = this.state;
 
     if (typeof game === 'undefined' || isSelecting) {
       return;
@@ -35,15 +34,6 @@ class SingleGame extends Component {
 
     let newSelectedPins = [];
 
-    if (!editMode && !frame[`throw_${currentBall}`]) {
-      console.log('hello');
-      this.setState({
-        editMode: true,
-        selectedPins: newSelectedPins,
-        isSelecting: true,
-      });
-      return;
-    }
 
     if (frame[`throw_${currentBall}`]) {
       newSelectedPins = this.pins.filter(pin => !frame[`throw_${currentBall}`].includes(pin));
@@ -72,26 +62,51 @@ class SingleGame extends Component {
   }
 
   handlePrev = () => {
-    const { currentFrame } = this.state;
+    const { currentFrame, currentBall } = this.state;
 
-    this.setState({
-      currentFrame: currentFrame - 1,
-      editMode: false,
-    });
+    if (currentBall > 1) {
+      this.setState({
+        currentBall: currentBall - 1,
+      });
+    } else {
+      this.setState({
+        currentFrame: currentFrame - 1,
+        currentBall: 2,
+      });
+    }
   }
 
   handleNext = () => {
-    const { currentFrame, currentBall, selectedPins, editMode } = this.state;
-    const { game, setThrow } = this.props;
+    const { currentFrame, currentBall } = this.state;
+    const { game } = this.props;
 
+    const frame = game.frames.find(frame => frame.number === currentFrame);
     const nextFrame = game.frames.find(frame => frame.number === currentFrame + 1);
 
-    if (!editMode) {
-      this.setState({
-        currentFrame: currentFrame + 1,
-      });
-      return;
+    if (currentBall === 1) {
+      if (!frame.throw_2 || (frame.throw_1.length === 10 && !nextFrame.throw_1)) {
+        return;
+      }
+
+      if (currentBall === 1) {
+        this.setState({
+          currentBall: 2,
+        });
+      } else {
+        this.setState({
+          currentFrame: currentFrame + 1,
+          currentBall: 1,
+        });
+      }
     }
+    this.setState({
+      selectedPins: [],
+    });
+  }
+
+  handleThrowSave = () => {
+    const { currentFrame, currentBall, selectedPins } = this.state;
+    const { game, setThrow } = this.props;
 
     const frame = game.frames.find(frame => frame.number === currentFrame);
 
@@ -128,15 +143,9 @@ class SingleGame extends Component {
       });
   }
 
-  toggleEditMode = () => {
-    this.setState({
-      editMode: !this.state.editMode,
-    });
-  }
-
   render() {
     const { game, isLoading } = this.props;
-    const { currentBall, currentFrame, selectedPins, editMode } = this.state;
+    const { currentBall, currentFrame, selectedPins } = this.state;
 
     if (isLoading) {
       return <div>Loading</div>;
@@ -154,22 +163,21 @@ class SingleGame extends Component {
           currentBall={currentBall}
           frames={game.frames}
         />
-        { editMode
-          ? <PinSelector
-            frame={game.frames.find(frame => frame.number === currentFrame)}
-            handlePinClick={this.handlePinSelect}
-            currentBall={currentBall}
-            selectedPins={selectedPins}
-          />
-          : <PinDisplay frame={game.frames.find(frame => frame.number === currentFrame)} />
-        }
+        <PinSelector
+          frame={game.frames.find(frame => frame.number === currentFrame)}
+          handlePinClick={this.handlePinSelect}
+          currentBall={currentBall}
+          selectedPins={selectedPins}
+        />
 
         <div className="py-6 px-2 flex justify-around">
           <button className="btn btn--white" disabled={currentBall === 2} type="button">Strike</button>
           <button className="btn btn--white" disabled={currentBall === 1} type="button">Spare</button>
-          <button className="btn btn--white" disabled={currentFrame === 1} onClick={this.handlePrev} type="button">Prev</button>
+          <button className="btn btn--white" disabled={currentFrame === 10 && currentBall === 3} onClick={this.handleThrowSave} type="button">Save Throw</button>
+        </div>
+        <div className="py-6 px-2 flex justify-around">
+          <button className="btn btn--white" disabled={currentFrame === 1 && currentBall === 1} onClick={this.handlePrev} type="button">Prev</button>
           <button className="btn btn--white" disabled={currentFrame === 10 && currentBall === 3} onClick={this.handleNext} type="button">Next</button>
-          <button className="btn btn--white" onClick={this.toggleEditMode} type="button">Edit Mode</button>
         </div>
       </DefaultLayout>
     );
@@ -181,8 +189,3 @@ const mapStateToProps = (state, ownProps) => ({
   isLoading: isFetching(state),
 });
 export default connect(mapStateToProps, { fetchGamesIfNeeded, setThrow })(SingleGame);
-
-
-// TODO: Next shouldn't be able to go to the next frame if the previous one isn't finished
-// TODO: Strike should only work when first ball is active
-// TODO: Spare should only work when second ball is active
