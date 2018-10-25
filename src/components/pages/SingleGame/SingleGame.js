@@ -63,16 +63,25 @@ class SingleGame extends Component {
 
   handlePrev = () => {
     const { currentFrame, currentBall } = this.state;
+    const { game } = this.props;
 
     if (currentBall > 1) {
       this.setState({
         currentBall: currentBall - 1,
       });
     } else {
-      this.setState({
-        currentFrame: currentFrame - 1,
-        currentBall: 2,
-      });
+      const prevFrame = game.frames.find(frame => frame.number === currentFrame - 1);
+
+      if (prevFrame.throw_1.length === 10) {
+        this.setState({
+          currentFrame: currentFrame - 1,
+        });
+      } else {
+        this.setState({
+          currentFrame: currentFrame - 1,
+          currentBall: 2,
+        });
+      }
     }
   }
 
