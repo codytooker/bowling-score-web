@@ -36,12 +36,13 @@
       @apply outline-none shadow-outline;
     }
 
-    &:disabled {
-      @apply bg-grey-light border-grey-light text-grey-light;
-    }
-
     &.btn--selected {
-      @apply bg-blue border-blue text-white;
+      @apply bg-red-dark border-red-dark text-red-lightest;
+    }
+    
+    &:disabled,
+    &:disabled:hover {
+      @apply bg-grey-light border-grey-light text-grey-light;
     }
   }
 }

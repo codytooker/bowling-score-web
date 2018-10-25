@@ -15,7 +15,7 @@ class SingleGame extends Component {
     currentFrame: 1,
     currentBall: 1,
     selectedPins: [],
-    isSelecting: false,
+    selectedWasSet: false,
   };
 
   componentDidMount() {
@@ -24,25 +24,21 @@ class SingleGame extends Component {
 
   componentDidUpdate() {
     const { game } = this.props;
-    const { isSelecting, currentFrame, currentBall } = this.state;
+    const { selectedWasSet, currentFrame, currentBall } = this.state;
 
-    if (typeof game === 'undefined' || isSelecting) {
+    if (typeof game === 'undefined' || selectedWasSet) {
       return;
     }
 
     const frame = game.frames.find(frame => frame.number === currentFrame);
 
-    let newSelectedPins = [];
-
-
     if (frame[`throw_${currentBall}`]) {
-      newSelectedPins = this.pins.filter(pin => !frame[`throw_${currentBall}`].includes(pin));
+      const newSelectedPins = this.pins.filter(pin => !frame[`throw_${currentBall}`].includes(pin));
+      this.setState({
+        selectedPins: newSelectedPins,
+        selectedWasSet: true,
+      });
     }
-
-    this.setState({
-      selectedPins: newSelectedPins,
-      isSelecting: true,
-    });
   }
 
   handlePinSelect = (pin) => {
@@ -83,6 +79,8 @@ class SingleGame extends Component {
         });
       }
     }
+
+    this.resetWasSet();
   }
 
   handleNext = () => {
@@ -115,9 +113,7 @@ class SingleGame extends Component {
       });
     }
 
-    this.setState({
-      selectedPins: [],
-    });
+    this.resetWasSet();
   }
 
   handleThrowSave = () => {
@@ -189,6 +185,14 @@ class SingleGame extends Component {
           isSelecting: false,
         });
       });
+
+    this.resetWasSet();
+  }
+
+  resetWasSet = () => {
+    this.setState({
+      selectedWasSet: false,
+    });
   }
 
   render() {

@@ -765,16 +765,17 @@ body {
       box-shadow: 0 0 0 3px rgba(52, 144, 220, .5);
     }
 
-.btn--pin:disabled {
+.btn--pin.btn--selected {
+      background-color: #cc1f1a;
+      border-color: #cc1f1a;
+      color: #fcebea;
+    }
+
+.btn--pin:disabled,
+    .btn--pin:disabled:hover {
       background-color: #dae1e7;
       border-color: #dae1e7;
       color: #dae1e7;
-    }
-
-.btn--pin.btn--selected {
-      background-color: #3490dc;
-      border-color: #3490dc;
-      color: #fff;
     }
 
 /* utilities */
