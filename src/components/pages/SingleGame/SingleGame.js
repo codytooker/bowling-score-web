@@ -81,24 +81,31 @@ class SingleGame extends Component {
     const { game } = this.props;
 
     const frame = game.frames.find(frame => frame.number === currentFrame);
-    const nextFrame = game.frames.find(frame => frame.number === currentFrame + 1);
 
     if (currentBall === 1) {
-      if (!frame.throw_2 || (frame.throw_1.length === 10 && !nextFrame.throw_1)) {
+      if (!frame.throw_1) {
         return;
       }
 
-      if (currentBall === 1) {
+      if (frame.throw_1.length === 10) {
         this.setState({
-          currentBall: 2,
+          currentFrame: currentFrame + 1,
         });
       } else {
         this.setState({
-          currentFrame: currentFrame + 1,
-          currentBall: 1,
+          currentBall: 2,
         });
       }
+    } else {
+      if (!frame.throw_2) {
+        return;
+      }
+      this.setState({
+        currentFrame: currentFrame + 1,
+        currentBall: 1,
+      });
     }
+
     this.setState({
       selectedPins: [],
     });
