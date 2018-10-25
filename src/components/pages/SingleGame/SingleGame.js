@@ -147,6 +147,17 @@ class SingleGame extends Component {
     this.assignBallScore(frame.id, currentFrame, currentBall, this.pins);
   }
 
+  handleSpareClick = () => {
+    const { currentFrame, currentBall } = this.state;
+    const { game } = this.props;
+
+    const frame = game.frames.find(frame => frame.number === currentFrame);
+
+    const knockedPins = this.pins.filter(pin => !frame.throw_1.includes(pin));
+
+    this.assignBallScore(frame.id, currentFrame, currentBall, knockedPins);
+  }
+
   assignBallScore = (id, currentFrame, currentBall, knockedPins) => {
     const { setThrow } = this.props;
 
@@ -209,7 +220,7 @@ class SingleGame extends Component {
 
         <div className="py-6 px-2 flex justify-around">
           <button className="btn btn--white" disabled={currentBall === 2} onClick={this.handleStrikeClick} type="button">Strike</button>
-          <button className="btn btn--white" disabled={currentBall === 1} type="button">Spare</button>
+          <button className="btn btn--white" disabled={currentBall === 1} onClick={this.handleSpareClick} type="button">Spare</button>
           <button className="btn btn--white" disabled={currentFrame === 10 && currentBall === 3} onClick={this.handleThrowSave} type="button">Save Throw</button>
         </div>
         <div className="py-6 px-2 flex justify-around">
