@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { FullBoard, PinSelector, PinDisplay } from '../../UI/bowling';
+import { FullBoard, PinSelector } from '../../UI/bowling';
 import { DefaultLayout } from '../../UI/Layouts';
 import { Heading } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
