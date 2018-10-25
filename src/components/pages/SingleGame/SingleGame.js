@@ -221,7 +221,7 @@ class SingleGame extends Component {
         <div className="py-6 px-2 flex justify-around">
           <button className="btn btn--white" disabled={currentBall === 2} onClick={this.handleStrikeClick} type="button">Strike</button>
           <button className="btn btn--white" disabled={currentBall === 1} onClick={this.handleSpareClick} type="button">Spare</button>
-          <button className="btn btn--white" disabled={currentFrame === 10 && currentBall === 3} onClick={this.handleThrowSave} type="button">Save Throw</button>
+          <button className="btn btn--white" disabled={(currentFrame === 10 && currentBall === 3) || !selectedPins.length} onClick={this.handleThrowSave} type="button">Save Throw</button>
         </div>
         <div className="py-6 px-2 flex justify-around">
           <button className="btn btn--white" disabled={currentFrame === 1 && currentBall === 1} onClick={this.handlePrev} type="button">Prev</button>
