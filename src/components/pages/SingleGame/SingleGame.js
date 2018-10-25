@@ -25,7 +25,7 @@ class SingleGame extends Component {
 
   componentDidUpdate() {
     const { game } = this.props;
-    const { isSelecting, currentFrame, currentBall } = this.state;
+    const { isSelecting, currentFrame, currentBall, editMode } = this.state;
 
     if (typeof game === 'undefined' || isSelecting) {
       return;
@@ -34,6 +34,17 @@ class SingleGame extends Component {
     const frame = game.frames.find(frame => frame.number === currentFrame);
 
     let newSelectedPins = [];
+
+    if (!editMode && !frame[`throw_${currentBall}`]) {
+      console.log('hello');
+      this.setState({
+        editMode: true,
+        selectedPins: newSelectedPins,
+        isSelecting: true,
+      });
+      return;
+    }
+
     if (frame[`throw_${currentBall}`]) {
       newSelectedPins = this.pins.filter(pin => !frame[`throw_${currentBall}`].includes(pin));
     }
@@ -75,7 +86,7 @@ class SingleGame extends Component {
 
     const nextFrame = game.frames.find(frame => frame.number === currentFrame + 1);
 
-    if (!editMode && nextFrame.throw_1 !== null) {
+    if (!editMode) {
       this.setState({
         currentFrame: currentFrame + 1,
       });
