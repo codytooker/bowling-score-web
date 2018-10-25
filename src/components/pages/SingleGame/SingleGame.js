@@ -122,7 +122,7 @@ class SingleGame extends Component {
 
   handleThrowSave = () => {
     const { currentFrame, currentBall, selectedPins } = this.state;
-    const { game, setThrow } = this.props;
+    const { game } = this.props;
 
     const frame = game.frames.find(frame => frame.number === currentFrame);
 
@@ -135,12 +135,33 @@ class SingleGame extends Component {
       knockedPins = this.pins.filter(pin => !framePinfall.includes(pin));
     }
 
-    setThrow(frame.id, currentBall, knockedPins)
+    this.assignBallScore(frame.id, currentFrame, currentBall, knockedPins);
+  }
+
+  handleStrikeClick = () => {
+    const { currentFrame, currentBall } = this.state;
+    const { game } = this.props;
+
+    const frame = game.frames.find(frame => frame.number === currentFrame);
+
+    this.assignBallScore(frame.id, currentFrame, currentBall, this.pins);
+  }
+
+  assignBallScore = (id, currentFrame, currentBall, knockedPins) => {
+    const { setThrow } = this.props;
+
+    setThrow(id, currentBall, knockedPins)
       .then(() => {
         if (currentBall === 1) {
-          this.setState({
-            currentBall: 2,
-          });
+          if (knockedPins.length === 10) {
+            this.setState({
+              currentFrame: currentFrame + 1,
+            });
+          } else {
+            this.setState({
+              currentBall: 2,
+            });
+          }
         } else if (currentFrame === 10 && currentBall === 2) {
           this.setState({
             currentBall: 3,
@@ -187,7 +208,7 @@ class SingleGame extends Component {
         />
 
         <div className="py-6 px-2 flex justify-around">
-          <button className="btn btn--white" disabled={currentBall === 2} type="button">Strike</button>
+          <button className="btn btn--white" disabled={currentBall === 2} onClick={this.handleStrikeClick} type="button">Strike</button>
           <button className="btn btn--white" disabled={currentBall === 1} type="button">Spare</button>
           <button className="btn btn--white" disabled={currentFrame === 10 && currentBall === 3} onClick={this.handleThrowSave} type="button">Save Throw</button>
         </div>
