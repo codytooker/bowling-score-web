@@ -10,15 +10,10 @@ const byId = (state = {}, action) => {
   switch (action.type) {
     case ADD_GAME:
     case RECEIVE_GAMES:
-      return {
-        ...state,
-        ...action.payload.entities.frames,
-      };
-
     case UPDATE_FRAME:
       return {
         ...state,
-        [action.payload.id]: action.payload,
+        ...action.payload.entities.frames,
       };
 
     default:

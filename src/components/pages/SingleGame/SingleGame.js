@@ -104,13 +104,20 @@ class SingleGame extends Component {
         });
       }
     } else {
-      if (!frame.throw_2) {
+      if (!frame.throw_2 || (currentFrame === 10 && ![10, 20].includes(frame.throw_1.length + frame.throw_2.length))) {
         return;
       }
-      this.setState({
-        currentFrame: currentFrame + 1,
-        currentBall: 1,
-      });
+
+      if (currentFrame === 10 && [10, 20].includes(frame.throw_1.length + frame.throw_2.length)) {
+        this.setState({
+          currentBall: 3,
+        });
+      } else {
+        this.setState({
+          currentFrame: currentFrame + 1,
+          currentBall: 1,
+        });
+      }
     }
 
     this.resetWasSet();
@@ -132,6 +139,48 @@ class SingleGame extends Component {
     }
 
     this.assignBallScore(frame.id, currentFrame, currentBall, knockedPins);
+  }
+
+  isStrikeDisabled = () => {
+    const { currentFrame, currentBall } = this.state;
+    const { game } = this.props;
+
+    if (currentFrame === 10) {
+      const tenthFrame = game.frames[game.frames.length - 1];
+
+      if (currentBall === 1
+        || (currentBall === 2 && tenthFrame.throw_1.length === 10)
+        || (currentBall === 3 && tenthFrame.throw_2.length === 10)
+        || (currentBall === 3 && tenthFrame.throw_1.length + tenthFrame.throw_2.length === 10)
+      ) {
+        return false;
+      }
+
+      return true;
+    }
+
+    return currentBall === 2;
+  }
+
+  isSpareDisabled = () => {
+    const { currentFrame, currentBall } = this.state;
+    const { game } = this.props;
+
+    if (currentFrame === 10) {
+      const tenthFrame = game.frames[game.frames.length - 1];
+
+      if (currentBall === 1
+          || (currentBall === 2 && tenthFrame.throw_1.length === 10)
+          || (currentBall === 3 && tenthFrame.throw_2.length === 10)
+          || (currentBall === 3 && tenthFrame.throw_1.length + tenthFrame.throw_2.length === 10)
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return currentBall === 1;
   }
 
   handleStrikeClick = () => {
@@ -158,8 +207,27 @@ class SingleGame extends Component {
     const { setThrow } = this.props;
 
     setThrow(id, currentBall, knockedPins)
-      .then(() => {
-        if (currentBall === 1) {
+      .then((data) => {
+        console.log(data);
+        if (currentFrame === 10) {
+          const tenthFrame = data.frames[data.frames.length - 1];
+          console.log(tenthFrame);
+
+          if (currentBall === 1) {
+            this.setState({
+              currentBall: 2,
+            });
+          } else if (currentBall === 2 && [10, 20].includes(tenthFrame.throw_1.length + tenthFrame.throw_2.length)) {
+            this.setState({
+              currentBall: 3,
+            });
+          } else {
+            this.setState({
+              currentFrame: 1,
+              currentBall: 1,
+            });
+          }
+        } else if (currentBall === 1) {
           if (knockedPins.length === 10) {
             this.setState({
               currentFrame: currentFrame + 1,
@@ -169,10 +237,6 @@ class SingleGame extends Component {
               currentBall: 2,
             });
           }
-        } else if (currentFrame === 10 && currentBall === 2) {
-          this.setState({
-            currentBall: 3,
-          });
         } else {
           this.setState({
             currentBall: 1,
@@ -219,12 +283,13 @@ class SingleGame extends Component {
           frame={game.frames.find(frame => frame.number === currentFrame)}
           handlePinClick={this.handlePinSelect}
           currentBall={currentBall}
+          currentFrame={currentFrame}
           selectedPins={selectedPins}
         />
 
         <div className="py-6 px-2 flex justify-around">
-          <button className="btn btn--white" disabled={currentBall === 2} onClick={this.handleStrikeClick} type="button">Strike</button>
-          <button className="btn btn--white" disabled={currentBall === 1} onClick={this.handleSpareClick} type="button">Spare</button>
+          <button className="btn btn--white" disabled={this.isStrikeDisabled()} onClick={this.handleStrikeClick} type="button">Strike</button>
+          <button className="btn btn--white" disabled={this.isSpareDisabled()} onClick={this.handleSpareClick} type="button">Spare</button>
           <button className="btn btn--white" disabled={(currentFrame === 10 && currentBall === 3) || !selectedPins.length} onClick={this.handleThrowSave} type="button">Save Throw</button>
         </div>
         <div className="py-6 px-2 flex justify-around">

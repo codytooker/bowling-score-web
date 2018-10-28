@@ -6,10 +6,10 @@ import MiniPinDisplay from '../MiniPinDisplay/MiniPinDisplay';
 import Ball from '../Ball/Ball';
 
 class Frame extends Component {
-  getBallScore = (number) => {
+  getBallScore = (ball) => {
     const { frame } = this.props;
 
-    if (number === 1) {
+    if (ball === 1) {
       if (frame.throw_1 === null) {
         return '';
       }
@@ -19,9 +19,15 @@ class Frame extends Component {
       }
 
       return frame.throw_1.length;
-    } if (number === 2) {
+    }
+
+    if (ball === 2) {
       if (frame.throw_2 === null) {
         return '';
+      }
+
+      if (frame.number === 10 && frame.throw_2.length === 10) {
+        return 'X';
       }
 
       if (frame.throw_1.length + frame.throw_2.length === 10) {
@@ -29,6 +35,22 @@ class Frame extends Component {
       }
 
       return frame.throw_2.length;
+    }
+
+    if (ball === 3) {
+      if (frame.throw_3 === null) {
+        return '';
+      }
+
+      if (frame.throw_3.length === 10) {
+        return 'X';
+      }
+
+      if (frame.throw_2.length !== 10 && frame.throw_2.length + frame.throw_3.length === 10) {
+        return '/';
+      }
+
+      return frame.throw_3.length;
     }
   };
 

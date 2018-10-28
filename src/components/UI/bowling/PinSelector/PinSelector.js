@@ -11,8 +11,38 @@ class PinSelector extends Component {
     [7, 8, 9, 10],
   ];
 
+  isDisabled = (pin) => {
+    const { currentFrame, currentBall, frame } = this.props;
+
+    if (currentFrame === 10 && currentBall === 1) {
+      return false;
+    }
+
+    if (currentFrame === 10 && currentBall === 2) {
+      if (frame.throw_1.length === 10) {
+        return false;
+      }
+
+      return frame.throw_1.indexOf(pin) !== -1;
+    }
+
+    if (currentFrame === 10 && currentBall === 3) {
+      if ([10, 20].includes(frame.throw_1.length + frame.throw_2.length)) {
+        return false;
+      }
+
+      return frame.throw_2.indexOf(pin) !== -1;
+    }
+
+    if (currentBall === 2 && frame.throw_1.indexOf(pin) !== -1) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
-    const { selectedPins, handlePinClick, frame, currentBall } = this.props;
+    const { selectedPins, handlePinClick } = this.props;
 
     return (
       <div className="bg-white py-4 flex flex-col-reverse">
@@ -24,7 +54,7 @@ class PinSelector extends Component {
                 number={pin}
                 handleClick={handlePinClick}
                 selected={selectedPins.indexOf(pin) !== -1}
-                disabled={currentBall === 2 && frame.throw_1.indexOf(pin) !== -1}
+                disabled={this.isDisabled(pin)}
               />
             ))}
           </div>
@@ -37,6 +67,7 @@ class PinSelector extends Component {
 PinSelector.propTypes = {
   frame: PropTypes.object.isRequired,
   currentBall: PropTypes.number.isRequired,
+  currentFrame: PropTypes.number.isRequired,
   handlePinClick: PropTypes.func.isRequired,
   selectedPins: PropTypes.array,
 };
