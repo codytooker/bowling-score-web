@@ -709,6 +709,7 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  transition: all .3s ease-in-out;
 }
 
 .btn:disabled {
@@ -758,6 +759,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
   }
 
 .btn--pin:focus {
@@ -6374,6 +6376,10 @@ body {
 
 .z-auto {
   z-index: auto;
+}
+
+.transition {
+  transition: all .3s ease-in-out;
 }
 
 @media (min-width: 576px) {

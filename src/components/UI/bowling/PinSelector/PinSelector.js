@@ -45,7 +45,7 @@ class PinSelector extends Component {
     const { selectedPins, handlePinClick } = this.props;
 
     return (
-      <div className="bg-white py-4 flex flex-col-reverse">
+      <div className="border border-black py-4 flex flex-col-reverse">
         {this.rows.map((row, index) => (
           <div key={index} className="my-2 flex justify-center">
             {row.map(pin => (

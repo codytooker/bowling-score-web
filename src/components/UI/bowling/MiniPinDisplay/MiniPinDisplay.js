@@ -14,14 +14,14 @@ class MiniPinDisplay extends Component {
     const { frame } = this.props;
 
     return (
-      <div className="bg-white py-px flex flex-col-reverse">
+      <div className="py-px flex flex-col-reverse">
         {this.rows.map((row, index) => (
           <div key={index} className="my-px flex justify-center">
             {row.map((pin) => {
               const pinClass = cs(
-                'rounded-full border w-1 h-1 mx-px',
-                { 'bg-grey border-grey': frame.throw_1 && frame.throw_1.includes(pin) },
-                { 'border-grey': frame.throw_2 && frame.throw_2.includes(pin) },
+                'rounded-full border w-2 h-2 mx-px',
+                { 'bg-blue border-blue': frame.throw_1 && frame.throw_1.includes(pin) },
+                { 'border-blue': frame.throw_2 && frame.throw_2.includes(pin) },
                 { 'bg-red border-red': frame.throw_1 && !frame.throw_1.includes(pin) && frame.throw_2 && !frame.throw_2.includes(pin) },
               );
               return (

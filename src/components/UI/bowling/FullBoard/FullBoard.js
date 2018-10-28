@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 import Frame from '../Frame/Frame';
 
 const FullBoard = ({ currentFrame, currentBall, frames }) => (
-  <div className="flex items-stretch select-none">
+  <div className="flex flex-wrap items-stretch select-none md:flex-no-wrap">
     {
       frames.map(frame => (
-        <Frame frame={frame} key={frame.id} active={frame.number === currentFrame} currentBall={currentBall} />
+        <Frame
+          className="w-1/5 md:w-auto"
+          frame={frame}
+          key={frame.id}
+          active={frame.number === currentFrame}
+          currentBall={currentBall}
+        />
       ))
     }
   </div>

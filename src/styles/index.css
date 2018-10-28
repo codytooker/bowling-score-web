@@ -9,4 +9,5 @@
 
 /* utilities */
 @import "tailwindcss/utilities";
+@import "utilities/transitions";
 

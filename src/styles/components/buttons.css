@@ -1,5 +1,5 @@
 .btn {
-  @apply inline-block py-2 px-4 rounded font-bold text-black no-underline select-none;
+  @apply inline-block py-2 px-4 rounded font-bold text-black no-underline select-none transition;
 
   &:disabled {
     @apply bg-grey text-grey-dark;
@@ -30,7 +30,7 @@
   }
 
   &--pin {
-    @apply block w-12 h-12 mx-2 border rounded-full flex items-center justify-center;
+    @apply block w-12 h-12 mx-2 border rounded-full flex items-center justify-center bg-white;
 
     &:focus {
       @apply outline-none shadow-outline;

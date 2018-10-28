@@ -55,11 +55,13 @@ class Frame extends Component {
   };
 
   render() {
-    const { frame, active, currentBall } = this.props;
+    const { frame, active, currentBall, className } = this.props;
 
     const frameClass = cs(
-      'flex-grow border border-black',
+      className,
+      'flex-grow border border-black mb-4',
       { 'bg-white': active },
+      { 'bg-grey-light': !active },
     );
 
     return (
