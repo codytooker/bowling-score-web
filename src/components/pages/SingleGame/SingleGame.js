@@ -273,7 +273,7 @@ class SingleGame extends Component {
 
     return (
       <DefaultLayout>
-        <Heading className="mb-4">{game.title}</Heading>
+        <Heading className="mb-8">{game.title}</Heading>
         <FullBoard
           currentFrame={currentFrame}
           currentBall={currentBall}
