@@ -624,6 +624,10 @@ body {
   background-color: #3490dc;
 }
 
+a {
+  color: #fff;
+}
+
 /* components */
 
 .container {
