@@ -1,3 +1,5 @@
+/* purgecss start ignore */
+
 body {
   @apply bg-blue;
 }

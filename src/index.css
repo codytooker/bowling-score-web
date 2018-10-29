@@ -620,6 +620,8 @@ table {
   border-collapse: collapse;
 }
 
+/* purgecss start ignore */
+
 body {
   background-color: #3490dc;
 }

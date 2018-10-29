@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^1.1.0",
     "autoprefixer": "^9.1.5",
     "eslint-config-airbnb-base": "^13.1.0",
     "postcss-cli": "^6.0.0",
@@ -28,8 +29,8 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "build:css": "postcss src/styles/index.css -o src/index.css",
-    "watch:css": "postcss src/styles/index.css -o src/index.css -w",
+    "build:css": "postcss ./src/styles/index.css -o ./src/index.css --env production",
+    "watch:css": "postcss ./src/styles/index.css -o ./src/index.css -w",
     "start": "npm run watch:css & react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
