@@ -28,7 +28,7 @@ class Games extends Component {
   render() {
     return (
       <DefaultLayout>
-        <Heading>My Games</Heading>
+        <Heading className="mb-8">My Games</Heading>
         {this.renderGames()}
       </DefaultLayout>
     );
