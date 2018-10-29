@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-const DefaultLayout = ({ children }) => {
-  return (
-    <div className="flex flex-col justify-between h-screen">
-      <main>
-        <div className="container">
-          {children}
-        </div>
-      </main>
-      <footer className="bg-black py-4 text-center text-white">
-        <Link to="/">Home</Link>
-      </footer>
-    </div>
-  )
-}
+const DefaultLayout = ({ children }) => (
+  <Fragment>
+    <main className="pt-8 pb-16">
+      <div className="container">
+        {children}
+      </div>
+    </main>
+    <footer className="fixed pin-b pin-l pin-r bg-black py-4 text-center">
+      <Link to="/">Home</Link>
+    </footer>
+  </Fragment>
+);
 
 export default DefaultLayout;
