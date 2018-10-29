@@ -24,7 +24,7 @@ class NewGame extends Component {
   render() {
     return (
       <DefaultLayout>
-        <Heading>Create New Game</Heading>
+        <Heading className="mb-8">Create New Game</Heading>
         <Card title="New Game">
           <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={this.onSubmit}>
             {({ isSubmitting }) => (
