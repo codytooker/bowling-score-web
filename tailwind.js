@@ -644,6 +644,7 @@ module.exports = {
   */
 
   padding: {
+    '5per': '5%',
     'px': '1px',
     '0': '0',
     '1': '0.25rem',
@@ -927,10 +928,10 @@ module.exports = {
   */
 
   plugins: [
-    require('tailwindcss/plugins/container')({
-      center: true,
-      padding: '1rem',
-    }),
+    // require('tailwindcss/plugins/container')({
+    //   center: true,
+    //   padding: '1rem',
+    // }),
   ],
 
 

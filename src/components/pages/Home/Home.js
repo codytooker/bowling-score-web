@@ -18,10 +18,10 @@ class Home extends Component {
       );
     }
     return (
-      <div className="flex flex-col w-3/4 mx-auto">
-        <Link className="btn btn--white btn--lg mb-6" to="/login">Login</Link>
-        <Link className="btn btn--white btn--lg" to="/signup">Sign Up</Link>
-      </div>
+      <>
+        <Link className="block btn btn--white btn--lg mb-6" to="/login">Login</Link>
+        <Link className="block btn btn--white btn--lg" to="/signup">Sign Up</Link>
+      </>
     );
   }
 
