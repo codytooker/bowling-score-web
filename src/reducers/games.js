@@ -5,6 +5,7 @@ import {
   REQUEST_GAMES,
   RECEIVE_GAMES,
   INVALIDATE_GAMES,
+  UNAUTH_USER,
 } from '../actions/types';
 
 import { getFrameByID } from './frames';
@@ -17,6 +18,9 @@ const byId = (state = {}, action) => {
         ...state,
         ...action.payload.entities.games,
       };
+
+    case UNAUTH_USER:
+      return {};
 
     default:
       return state;
@@ -31,6 +35,9 @@ const allIds = (state = [], action) => {
         ...state,
         ...Object.keys(action.payload.entities.games).map(Number),
       ];
+
+    case UNAUTH_USER:
+      return [];
 
     default:
       return state;
@@ -61,6 +68,9 @@ const meta = (state = INITIAL_META, action) => {
         isInvalidated: false,
         lastUpdated: action.payload.receivedAt,
       });
+
+    case UNAUTH_USER:
+      return INITIAL_META;
 
     default:
       return state;

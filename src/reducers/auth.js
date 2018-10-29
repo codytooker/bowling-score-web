@@ -1,4 +1,7 @@
-import { AUTH_USER } from '../actions/types';
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   user: '',
@@ -11,6 +14,9 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         user: action.payload,
       };
+
+    case UNAUTH_USER:
+      return INITIAL_STATE;
 
     default:
       return state;

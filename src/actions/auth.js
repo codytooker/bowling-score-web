@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import {
   AUTH_USER,
+  UNAUTH_USER,
 } from './types';
 
 export const signup = values => dispatch => axios.post('/auth/register', values)
@@ -20,8 +21,7 @@ export const signout = () => {
   localStorage.removeItem('token');
 
   return {
-    type: AUTH_USER,
-    payload: '',
+    type: UNAUTH_USER,
   };
 };
 

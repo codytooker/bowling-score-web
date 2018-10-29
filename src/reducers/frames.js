@@ -4,6 +4,7 @@ import {
   RECEIVE_GAMES,
   ADD_GAME,
   UPDATE_FRAME,
+  UNAUTH_USER,
 } from '../actions/types';
 
 const byId = (state = {}, action) => {
@@ -15,6 +16,9 @@ const byId = (state = {}, action) => {
         ...state,
         ...action.payload.entities.frames,
       };
+
+    case UNAUTH_USER:
+      return {};
 
     default:
       return state;
@@ -29,6 +33,9 @@ const allIds = (state = [], action) => {
         ...state,
         ...Object.keys(action.payload.entities.frames).map(Number),
       ];
+
+    case UNAUTH_USER:
+      return [];
 
     default:
       return state;
