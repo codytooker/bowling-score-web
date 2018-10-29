@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { format } from 'date-fns';
 
 import { DefaultLayout } from '../../UI/Layouts';
-import { Heading } from '../../UI/elements';
+import { Heading, Loader } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
 import { getGames, isFetching } from '../../../reducers/games';
 
@@ -15,7 +15,7 @@ class Games extends Component {
 
   renderGames() {
     if (this.props.isLoading) {
-      return <div>Show Loading</div>;
+      return <Loader />;
     }
 
     if (this.props.games.length) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { FullBoard, PinSelector } from '../../UI/bowling';
 import { DefaultLayout } from '../../UI/Layouts';
-import { Heading } from '../../UI/elements';
+import { Heading, Loader } from '../../UI/elements';
 import { fetchGamesIfNeeded } from '../../../actions/game';
 import { setThrow } from '../../../actions/frame';
 import { getGameByID, isFetching } from '../../../reducers/games';
@@ -264,7 +264,7 @@ class SingleGame extends Component {
     const { currentBall, currentFrame, selectedPins } = this.state;
 
     if (isLoading) {
-      return <div>Loading</div>;
+      return <Loader />;
     }
 
     if (typeof game === 'undefined') {
