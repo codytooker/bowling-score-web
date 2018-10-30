@@ -16,12 +16,13 @@ import './setup/api';
 
 setAuthorizationToken(localStorage.getItem('token'));
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   reducers,
   { auth: { user: localStorage.getItem('token') && jwtDecode(localStorage.getItem('token')).user } },
-  compose(
+  composeEnhancers(
     applyMiddleware(reduxThunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
 
