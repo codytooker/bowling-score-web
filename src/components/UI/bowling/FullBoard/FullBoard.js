@@ -8,7 +8,7 @@ const FullBoard = ({ currentFrame, currentBall, frames }) => (
     {
       frames.map(frame => (
         <Frame
-          className="w-1/5 md:w-auto"
+          className="w-1/5"
           frame={frame}
           key={frame.id}
           active={frame.number === currentFrame}
