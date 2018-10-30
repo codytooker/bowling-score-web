@@ -7,3 +7,5 @@ body {
 a {
   @apply text-white;
 }
+
+/* purgecss end ignore */

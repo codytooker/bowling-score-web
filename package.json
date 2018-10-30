@@ -29,14 +29,14 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "build:css": "postcss ./src/styles/index.css -o ./src/index.css --env production",
-    "watch:css": "postcss ./src/styles/index.css -o ./src/index.css -w",
-    "start": "npm run watch:css & react-scripts start",
-    "build": "npm run build:css && react-scripts build",
+    "start:tw": "postcss ./src/styles/index.css -o ./src/index.css",
+    "build:tw": "postcss ./src/styles/index.css -o ./src/index.css --env production",
+    "start:cra": "react-scripts start",
+    "build:cra": "react-scripts build",
+    "start": "npm run start:tw & npm run start:cra",
+    "build": "npm run build:tw & npm run build:cra",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js",
-    "lint-fix": "eslint src/**/*.js --fix"
+    "eject": "react-scripts eject"
   },
   "browserslist": [
     ">0.2%",

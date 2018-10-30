@@ -15,7 +15,6 @@ module.exports = {
     require('autoprefixer')(),
     process.env.NODE_ENV === "production" &&  purgecss({
       content: ['./src/**/*.js', './public/**/*.html'],
-      css: ['./src/styles/index.css'],
       extractors: [
         {
           extractor: TailwindExtractor,
@@ -23,5 +22,5 @@ module.exports = {
         }
       ],
     }),
-  ],
-};
+  ]
+}

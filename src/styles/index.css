@@ -1,6 +1,6 @@
 /* preflight - base */
 @import "tailwindcss/preflight";
-@import './base';
+@import './base/base';
 
 /* components */
 @import "tailwindcss/components";
